@@ -1,0 +1,41 @@
+
+# example of double inner join
+
+select ts.sid, tf.name, ta.long_acct, ts.quantity, ts.name, ts.price, ts.trans_date from test_firms tf join test_accounts ta on ta.fid=tf.FID join test_stocks ts on ts.aid=ta.aid where ta.long_acct = 2138 order by ts.name ASC;
+
+# example of double inner join with memory variable
+set @1='5782'+'collate utf8mb4_general_ci';
+
+select ts.sid, tf.name, ta.long_acct, ts.quantity, ts.name, ts.price, ts.trans_date from test_firms tf join test_accounts ta on ta.fid=tf.FID join test_stocks ts on ts.aid=ta.aid where ta.long_acct = @1 order by ts.name ASC;
+
+inner join for four tables:prices, stocks, accounts, and firms
+SELECT tp.symbol, tf.name, ta.long_acct, ts.name, tp.effective_date, tp.prices from test_prices tp 
+INNER JOIN test_stocks ts on ts.sid=tp.sid
+INNER JOIN test_accounts ta on ta.aid=ts.aid
+INNER JOIN test_firms tf on tf.FID=ta.fid
+
+SELECT f.name, a.long_acct, s.name, p.symbol, p.effective_date, p.prices from prices p 
+INNER JOIN stocks s on s.sid=p.sid 
+INNER JOIN accounts a on a.aid=s.aid 
+INNER JOIN firms f on f.FID=a.fid 
+ORDER BY tp.symbol ASC
+
+sql = "select s.sid, a.long_acct, f.name, s.quantity, s.price, s.stock_symbol, s.name, s.trans_date" \
+"  from test_stocks s, test_accounts a, test_firms f  where s.aid=a.aid and  a.fid=f.FID and s.stock_symbol like %s and s.aid = %s "        # where stock_symbol like  %s and aid = %s "
+cursor.execute(sql, (self.m_find1, m_aid))               
+
+# list contents of an account
+select a.long_acct, s.quantity, s.name, s.price, s.fee, s.stock_symbol, s.buyorsell from test_accounts a, test_stocks s inner join a on a.aid=s.aid where a.long_acct = 5782 order by s.name asc;
+
+select firms.name, stocks.stock_symbol, accounts.long_acct from stocks , accounts, firms where firms.FID = accounts.fid and accounts.aid = stocks.aid and stocks.aid = 1 order by stocks.stock_symbol asc 
+
+set @mvar1='%l%';
+select s.sid, p.pid, s.quantity, s.stock_symbol,s.price, p.prices, a.long_acct from stocks s inner join accounts a on s.aid = a.aid inner join prices p on s.sid=p.sid where p.symbol like @mvar1;
+
+# phpmyadmin sql that works
+set @1 = '%x%';
+select s.stock_symbol, s.name, s.price, s.trans_date, tp.symbol, tp.prices, tp.effective_date from stocks s, test_prices tp where s.stock_symbol = tp.symbol and s.stock_symbol like @1; 
+
+#phpmyadmin sql that returns nothing:
+set @1 = '%xlre%';
+select s.stock_symbol, s.name, s.price, s.trans_date, tp.symbol, tp.prices, tp.effective_date from stocks s, test_prices tp where s.stock_symbol = tp.symbol and s.stock_symbol like @1; 

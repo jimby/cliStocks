@@ -1,0 +1,7 @@
+[DEFAULT]
+muser = jim
+mpwd = SladeDigger
+mhost = 192.168.1.115
+mport = 3307
+mfile = stocks
+
