@@ -18,7 +18,7 @@ whiptail --title "Find data menu" --menu "Make your choice" 16 100 9 \
 # result=$(whoami)
 case $CHOICE in
     "1)")   
-        python3 ./find_firm_cl2.py
+        python3 ./find_firm_cl.py
     ;;
     "2)")   
         python3 ./find_symbol_cl.py
