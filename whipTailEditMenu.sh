@@ -18,7 +18,7 @@ whiptail --title "Edit data" --menu "Make your choice" 16 100 9 \
 # result=$(whoami)
 case $CHOICE in
     "1)")   
-        # python ./find_firm.py
+        # python ./find_firm_cl.py
     ;;
     "2)")   
             
