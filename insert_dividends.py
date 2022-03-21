@@ -81,18 +81,19 @@ class FindStock:
         return msid
 
 class InsertDividend:
-    def __init__(self, conn, msymbol, mdividend, mdate, maid):
+    def __init__(self, conn, msymbol, mdividend, mdate, maid, msid):
         self.conn = conn
         self.msymbol = msymbol
         self.mdividend = mdividend
         self.mdate = mdate
         self.maid = maid
+        self.msid = msid
         
 
     def insert_dividend(self):
         cursor = self.conn.cursor()
-        sql = """INSERT INTO dividend (symbol,Dividend,date,aid) VALUES ('%s', '%s', '%s', '%s')""" %\
-          (self.msymbol, self.mdividend, self.mdate, self.maid)
+        sql = """INSERT INTO dividend (symbol,Dividend,date,aid, sid) VALUES ('%s', '%s', '%s', '%s', '%s')""" %\
+          (self.msymbol, self.mdividend, self.mdate, self.maid, self.msid)
         cursor.execute(sql)
         self.conn.commit()
         return cursor.lastrowid
@@ -139,7 +140,7 @@ def main():
             while True:
                 # find stock already in file
                 msymbol = input('Enter stock symbol:')
-                # msid = find_stock(conn, m_aid, msymbol)
+                msid = find_stock(conn, m_aid, msymbol)
 
                 # enter data
                 mdividend = input('enter current dividend:')
@@ -147,8 +148,8 @@ def main():
                 # maid = input('enter account id, aid: ')
 
                 # insert dividend
-                id1 = InsertDividend(conn, msymbol, mdividend, mdate, maid)
-
+                id1 = InsertDividend(conn, msymbol, mdividend, mdate, maid, msid)
+                i\
                 lrowID = id1.insert_dividend()
                 # lrowid= insert_dividend(conn, msymbol, mdividend, mdate, m_aid)                                # insert_dividend
                 print(lrowID)
