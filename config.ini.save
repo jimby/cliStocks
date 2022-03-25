@@ -1,0 +1,6 @@
+[DEFAULT]
+muser = jim
+mpwd = SladeDiggermhost = localhost
+mport = 3306
+mfile = stocks
+
