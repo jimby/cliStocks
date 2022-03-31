@@ -47,12 +47,12 @@ def find_stock(conn):
         for row in results:
             print("{:3d}".format(row[0]), "{0:5s}".format(row[1]), "{0:30s}".format(row[2]), "{0:6.2f}".format(row[3]), "{0:6.2f}".format(row[4]), "{:%m/%d/%Y}".format(row[5]), "{}".format(row[6]))
 
-        manswer = input("Enter sid: ")
-
-        return manswer
+        m_sid = input("Enter sid: ")
+        return m_sid
     except:
-        print("Error: unable to find data")
-
+        print("Error: no data")
+        yn = input("Return")
+        return 0
 
 def edit_stock(db, val):
 

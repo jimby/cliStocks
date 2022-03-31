@@ -18,14 +18,13 @@ class FindStock:
         while True:
             msymbol = input("enter symbol: ")
             msymbol = '%{}%'.format(msymbol)
+            print('Msymbol: ', msymbol)
             
-            sql = "SELECT stocks.sid, stocks.stock_symbol, stocks.quantity, stocks.name, stocks.price, prices.prices," \
-              " accounts.long_acct, prices.effective_date from prices" \
-              " INNER JOIN stocks ON prices.sid = stocks.sid" \
-              " INNER JOIN accounts ON stocks.aid=accounts.aid" \
-              " INNER JOIN firms ON accounts.FID = firms.fid" \
-              " WHERE stocks.stock_symbol LIKE '%s' ORDER BY stocks.name ASC" % msymbol
-
+            sql = "SELECT  s.stock_symbol, a.long_acct,p.sid from stocks s INNER JOIN prices p ON p.sid = s.sid INNER JOIN accounts a on a.aid = s.aid  WHERE s.stock_symbol LIKE '%s' ORDER BY  s.name ASC" % msymbol
+             
+            # sql = "SELECT s.sid, s.stock_symbol, s.name, s.price, a.long_acct, p.prices from prices p, stocks s,  accounts a where s.aid = a.aid and s.stock_symbol like '%s' "   %  msymbol
+            
+            
             cursor.execute(sql)
 
             data = cursor.fetchall()
@@ -33,18 +32,18 @@ class FindStock:
             if len(data) == 0:
                 print("No symbol found")
                 
-                    
+            print("\n{a:<4}".format(a='stock id:'),"{a:<15}".format(a='symbol:'),"{a:<10}".format(a='name:'),"                      {a:<15}".format(a='buy price:'),"{a:<15}".format(a='current price:'),"{a:<15}".format(a='account:'),"{a:<15}".format(a='settled:'))
+   
             for row in data:
-               print("{a:<15}".format(a='stock id:'),"{}".format(row[0]),"\n",        
-                     "{a:<15}".format(a='symbol'),"{}".format(row[1]),"\n",
-                     "{a:<15}".format(a='quantity:'),"{}".format(row[2]),"\n",
-                     "{a:<15}".format(a='name:'),"{}".format(row[3]),"\n",
-                     "{a:<15}".format(a='buy price:'),"{}".format(row[4]),"\n",
-                     "{a:<15}".format(a='current price:'),"{}".format(row[5]),"\n",
-                     "{a:<15}".format(a='account:'),"{}".format(row[6]),"\n",
-                     "{a:<15}".format(a='settled:'),"{}".format(row[7]),"\n\n")
-        
+                # print("{a:<4}".format(a='stock id:'),"{a:<15}".format(a='symbol:'),"{a:<10}".format(a='name:'),"                   {a:<15}".format(a='buy price:'),"{a:<15}".format(a='current price:'),"{a:<15}".format(a='account:'),"{a:<15}".format(a='settled:'))
+                print(
+                    "\n{}".format(row[0]),        
+                    "{}".format(row[1]),
+                    "{}".format(row[2]))
+                    
+                    
             yn = input("continue y/n")
+            
             if (yn == 'N' or yn == 'n'):
                 break
             else:
@@ -71,7 +70,7 @@ def main():
  
 if __name__ == '__main__':
     main()
-    clear()
+    
     # cursor.close
     # conn.close
     # import sys

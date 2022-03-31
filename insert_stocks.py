@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # insert_stocks.py
 
-from mysql.connector import (connection)
+import MakeConnection
 import time
 #noinspection PyUnresolvedReferences
 import datetime
@@ -16,16 +16,6 @@ def validate(date_text):
     except ValueError:
         print("wrong date", date_text)
         return 0
-
-
-def create_connection(conn_user, conn_pwd, conn_host, conn_port, conn_file):
-    try:
-        conn = connection.MySQLConnection(user=conn_user, password=conn_pwd, host=conn_host, port=conn_port, database=conn_file)
-        return conn
-    except Exception as e:
-        print(e)
-        return None
-
 
 def find_account(conn):
     msg = "account"

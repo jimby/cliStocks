@@ -1,8 +1,12 @@
 #!/usr/bin/env python
+# edit first, then if no price, insert
+
 #######
-from mysql.connector import (connection)
+import MakeConnection
+# from mysql.connector import (connection)
 import datetime
-import configparser
+import os
+# import configparser
 
 #
 # import os
@@ -10,39 +14,6 @@ import configparser
 
 # g_name = ''
 # global yn
-class MakeConnection:
-
-    def __init__(self, muser, mpwd, mhost, mport, mfile):
-        #     self.name = name    # instance variable unique to each instance
-        self.muser = muser
-        self.mpwd = mpwd
-        self.mhost = mhost
-        self.mport = mport
-        self.mfile = mfile
-
-    def create_connection(self):
-        try:
-            conn = connection.MySQLConnection(user=self.muser, password=self.mpwd, host=self.mhost, port=self.mport,
-                                              database=self.mfile)
-            cursor = conn.cursor()
-            print("connected")
-            return conn
-        except Exception as e:
-            print("no connection")
-            return e
-
-    def get_config(self):
-        config = configparser.ConfigParser()
-        config.read('config.ini')
-        self.muser = config['DEFAULT']['muser']
-        self.mpwd = config['DEFAULT']['mpwd']
-        self.mhost = config['DEFAULT']['mhost']
-        self.mport = config['DEFAULT']['mport']
-        self.mfile = config['DEFAULT']['mfile']
-
-        b = [self.muser, self.mpwd, self.mhost, self.mport, self.mfile]
-        return b
-
 
 def validate(date_text):
     try:
@@ -64,7 +35,7 @@ class Find:
 
     def find_account(self, m_account):
         """ find aid, stock_symbol, if already in stocks table"""
-        self.m_account = m_account
+        # m_account = input("Enter account number: ")
         cursor = self.conn.cursor()
         sql = "SELECT a.aid, a.short_acct, a.long_acct, a.acct_type FROM test_accounts a  WHERE a.long_acct like '%s' " % self.m_account
         cursor.execute(sql)
@@ -73,16 +44,18 @@ class Find:
         while row is not None:
             print(row)
             row = cursor.fetchone()
-        self.m_aid = input("Enter aid:")
+        # self.m_aid = input("Enter aid:")
+
         return self.m_aid
 
-    def find_symbol(self, m_aid, m_symbol, m_sid):
+    def find_symbol(self, m_aid, m_symbol):
+    # def find_symbol(self, m_aid,  m_symbol, m_sid):
         """ find aid, stock_symbol, if already in stocks table"""
 
         cursor = self.conn.cursor()
-        self.m_aid = m_aid
-        self.m_symbol = m_symbol
-        self.m_sid = m_sid
+        # self.m_aid = m_aid
+        # self.m_symbol = m_symbol
+        # self.m_sid = m_sid
         m_var = 0
         while True:
             # def find_account(self):
@@ -90,8 +63,8 @@ class Find:
             try:
 
                 # m_aid = m_aid + ' collate utf8mb_general_ci'
-                sql = "SELECT s.sid, s.stock_symbol, s.name, s.LotNumber, s.quantity, s.price FROM test_stocks s WHERE s.aid LIKE %s AND s.stock_symbol LIKE %s "
-                params = (m_aid, m_symbol)
+                sql = "SELECT s.sid, s.stock_symbol, s.name, s.lot_number, s.quantity, s.price FROM stocks s WHERE s.aid LIKE %s AND s.stock_symbol LIKE %s "
+                params = (self.m_aid, self.m_symbol)
                 cursor.execute(sql, params)
                 row = cursor.fetchone()
                 while row is not None:
@@ -100,7 +73,11 @@ class Find:
                 m_sid = input("l101 If you see your stock symbol here, enter index number (sid), else enter 0...")
             except:
                 print("-undetermined error")
+                print("msid: ", m_sid)
+                yn = input("waiting at line 73")
             finally:
+                print("msid: ", m_sid)
+                yn = input("waiting at line 76")
                 return m_sid
 
 
@@ -148,14 +125,9 @@ class Insert:
 
 
 def main(i1=None, f1=None):
-
-    # class MakeConnection
-    muser = ''
-    mpwd = ''
-    mhost = ''
-    mport = 0
-    mfile = ''
-    conn = ' '
+    conn = MakeConnection.get_config()
+    if not conn:
+        print("no connection fl65")
 
     # class find
     m_symbol = ' '
@@ -163,10 +135,6 @@ def main(i1=None, f1=None):
     m_aid = ' '
     m_sid = ' '
 
-    a1 = MakeConnection(muser, mpwd, mhost, mport, mfile)
-    b = a1.get_config()
-    a1 = MakeConnection(b[0], b[1], b[2], b[3], b[4])
-    conn = a1.create_connection()
 
     # class Find
     # m_var = ' '
@@ -180,21 +148,26 @@ def main(i1=None, f1=None):
 
     f1 = Find(conn, m_symbol, m_account, m_aid, m_sid)
     # i1 = Insert().insert
-    print("170 m_sid: ", m_sid)
-    yn = input("waiting at line 171")
+    # print("170 m_sid: ", m_sid)
+    # yn = input("waiting at line 171")
 
     i1 = Insert(conn, m_symbol, m_date, m_price, m_sid)
 
     # find, insert firm name
     while True:
+
+        #find account
         m_account = input("Account#: ")
         m_account = '%{}%'.format(m_account)
-
         m_aid = f1.find_account(m_account)
-        # maid = int(maid)
 
+
+        # find symbol-
+        #   if no symbol, insert price
         m_symbol = input("L172 Enter stock symbol: ")
-        m_sid = f1.find_symbol(m_aid, m_symbol, m_sid)
+        print("Symbol, aid", m_symbol, m_aid)
+        yn = ('Waiting at line 168)')
+        m_sid = f1.find_symbol(m_aid, m_symbol)
         print("185 m_sid: ", m_sid)
         yn = input("waiting at line 186")
 

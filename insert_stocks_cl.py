@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # insert_stocks_cl.py
-
-from mysql.connector import MySQLConnection, Error
+import MakeConnection
+#from mysql.connector import MySQLConnection, Error
 import configparser
 import os
 import time
@@ -19,39 +19,6 @@ def validate(date_text):
         print("wrong date", date_text)
         return 0
 
-#create connection to NAS database
-class MakeConnection:
-
-    def __init__(self, muser, mpwd, mhost, mport, mfile):
-        #     self.name = name    # instance variable unique to each instance
-        self.muser = muser
-        self.mpwd = mpwd
-        self.mhost = mhost
-        self.mport = mport
-        self.mfile = mfile
-
-
-    def create_connection(self):
-        try:
-            conn = MySQLConnection(user=self.muser, password=self.mpwd, host=self.mhost, port=self.mport, database=self.mfile)
-            cursor = conn.cursor()
-            print("connected")
-            return conn
-        except Exception as e:
-            print("no connection")
-            return e
-
-    def get_config(self):
-        config = configparser.ConfigParser()
-        config.read('config.ini')
-        self.muser = config['DEFAULT']['muser']
-        self.mpwd = config['DEFAULT']['mpwd']
-        self.mhost = config['DEFAULT']['mhost']
-        self.mport = config['DEFAULT']['mport']
-        self.mfile = config['DEFAULT']['mfile']
-
-        b = [self.muser, self.mpwd, self.mhost, self.mport, self.mfile]
-        return b
 
 #  find things
 class Find:

@@ -58,20 +58,23 @@ class EditPrices:
         self.msymbol = input("enter stock symbol: ")
         self.msymbol = '%{}%'.format(self.msymbol)
 
-        sql = """SELECT tp.pid, tp.symbol, tf.name, ta.long_acct, ts.quantity, ts.name, tp.effective_date, tp.prices
-        from test_prices tp
-        INNER JOIN test_stocks ts on ts.sid = tp.sid
-        INNER JOIN test_accounts ta on ta.aid = ts.aid
-        INNER JOIN test_firms tf on tf.FID = ta.fid
-        WHERE tp.symbol LIKE '%s' ORDER BY tp.symbol ASC""" % self.msymbol
+        #  sql = """SELECT tp.pid, tp.symbol, tf.name, ta.long_acct, ts.quantity, ts.name, tp.effective_date, tp.prices
+        # from test_prices tp
+        # INNER JOIN test_stocks ts on ts.sid = tp.sid
+        # INNER JOIN test_accounts ta on ta.aid = ts.aid
+        # INNER JOIN test_firms tf on tf.FID = ta.fid
+        sql = """select pid, symbol, price, date from Prices where symbol like '%s'"""% self.msymbol
+        
+        
+        # WHERE tp.symbol LIKE '%s' ORDER BY tp.symbol ASC""" % self.msymbol
 
         try:
             cursor.execute(sql)
             results = cursor.fetchall()
-            print("PID|   |symbol   |Firm           |Account      |Price  |Company                      |Date")
+            print("PID|   |symbol   Price             |Date")
             for row in results:
                 print("{0:<5}".format(row[0]), "{0:<10}".format(row[1]), "{0:<10}".format(row[2]), "{0:10}".format(row[3]),
-                      "{0:>10}".format(row[4]), "{0:<30}".format(row[5]), "{}".format(row[6]))
+                      "{0:>10}".format(row[4]))
 
             self.mpid = input("Enter id or quit: (q)?")
             return self.mpid
