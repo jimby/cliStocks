@@ -46,10 +46,11 @@ class FindStock:
     cursor = ''
     msymbol = ''
     
-    def __init__(self, conn, m_aid, m_symbol):
+    def __init__(self, conn, m_aid, m_symbol, m_account):
         self.conn = conn
         self.m_aid = m_aid
         self.m_symbol = m_symbol
+        self.m_account = m_account
         
     def find_stock(self, conn):
         """ find aid, stock_symbol, if already in stocks table"""
@@ -60,13 +61,13 @@ class FindStock:
         while True:
             m_symbol = input("Enter stock symbol: ")
             m_symbol = '%{}%'.format(m_symbol)
+            m_account = input("account: ")
         
             sql = "SELECT stocks.sid, stocks.stock_symbol, stocks.quantity, stocks.name, stocks.price, prices.prices," \
               " accounts.long_acct, prices.effective_date from prices" \
               " INNER JOIN stocks ON prices.sid = stocks.sid" \
               " INNER JOIN accounts ON stocks.aid=accounts.aid" \
-              " INNER JOIN firms ON accounts.FID = firms.fid" \
-              " WHERE stocks.stock_symbol LIKE '%s' " % m_symbol
+              " WHERE stocks.stock_symbol AND accounts.long_acct LIKE '%s', '%s'  " % (m_symbol, m_account)
           
             cursor.execute(sql)
             
@@ -85,9 +86,9 @@ class FindStock:
                      "{a:<15}".format(a='settled:'),"{}".format(row[7]))
                 
             try:
-                cursor.execute(sql)
-                results = cursor.fetchall()
-
+                # cursor.execute(sql)
+                # results = cursor.fetchall()
+                yn = input('Waiting at line 90')
                 print("SID|symbol-|firm name--------------------|qty---|price|date------|acct")
                 for row in results:
                     print("%-4d %-25s %-30s %-25s %-25s" % (row[0], row[1], row[2], row[3], row[4], row[5], row[6]))
@@ -95,8 +96,8 @@ class FindStock:
                 m_sid = input("l76 Enter sid: ")
                 return m_sid
             except:
-                print("l79 Error: no data")
-                yn = input("l80 Return")
+                print("l98 Error: no data")
+                yn = input("l99 Return")
                 return 0
 
 

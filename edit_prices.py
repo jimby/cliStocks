@@ -6,7 +6,6 @@ import os
 class MakeConnection:
 
     def __init__(self, muser, mpwd, mhost, mport, mfile):
-        #     self.name = name    # instance variable unique to each instance
         self.muser = muser
         self.mpwd = mpwd
         self.mhost = mhost
@@ -79,7 +78,6 @@ class EditPrices:
             self.mpid = input("Enter id or quit: (q)?")
             return self.mpid
             # print('pid: ', self.mpid)
-            yn = input('waiting at line 74')
         except Exception as e:
             print("l83 Error: no data")
             return 0

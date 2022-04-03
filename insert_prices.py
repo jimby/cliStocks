@@ -5,7 +5,7 @@
 import MakeConnection
 # from mysql.connector import (connection)
 import datetime
-import os
+# import os
 # import configparser
 
 #
@@ -37,16 +37,24 @@ class Find:
         """ find aid, stock_symbol, if already in stocks table"""
         # m_account = input("Enter account number: ")
         cursor = self.conn.cursor()
-        sql = "SELECT a.aid, a.short_acct, a.long_acct, a.acct_type FROM test_accounts a  WHERE a.long_acct like '%s' " % self.m_account
-        cursor.execute(sql)
+        m_var = 0
+        while True:
+            print("aid--acct--acct_type")
+            try:
+                sql = """select a.aid, a.long_acct, a.acct_type FROM accounts a WHERE a.long_acct LIKE '%s' """ % self.m_account
+                cursor.execute(sql)
+                row = cursor.fetchone()
+                if len(row) == 0:
+                    return 0
+                else:
+                    while row is not None:
+                        print("{:3d}".format(row[0]), '  ', "{}".format(row[1]))
 
-        row = cursor.fetchone()
-        while row is not None:
-            print(row)
-            row = cursor.fetchone()
-        # self.m_aid = input("Enter aid:")
+                self.m_aid = input("Enter account index number (AID)")
+                return self.m_aid
+            except ValueError:
+                print('Error: unknown error')
 
-        return self.m_aid
 
     def find_symbol(self, m_aid, m_symbol):
     # def find_symbol(self, m_aid,  m_symbol, m_sid):
@@ -164,7 +172,7 @@ def main(i1=None, f1=None):
 
         # find symbol-
         #   if no symbol, insert price
-        m_symbol = input("L172 Enter stock symbol: ")
+        m_symbol = input("L172 Enter stock_symbol: ")
         print("Symbol, aid", m_symbol, m_aid)
         yn = ('Waiting at line 168)')
         m_sid = f1.find_symbol(m_aid, m_symbol)
