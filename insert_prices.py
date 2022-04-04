@@ -1,60 +1,48 @@
 #!/usr/bin/env python
 # edit first, then if no price, insert
-
-#######
 import MakeConnection
-# from mysql.connector import (connection)
+import os
 import datetime
-# import os
-# import configparser
-
-#
-# import os
-
-
-# g_name = ''
-# global yn
 
 def validate(date_text):
     try:
         datetime.datetime.strptime(date_text, '%Y-%m-%d')
         return 1
     except ValueError:
-        print("malformed date entry", date_text)
+        print("L23 malformed date entry", date_text)
         return 0
 
 
 class Find:
-
-    def __init__(self, conn, m_symbol, m_account, m_aid, m_sid):
+    cursor = ' '
+    macct = ' '
+    def __init__(self, conn):
         self.conn = conn
-        self.m_symbol = m_symbol
-        self.m_account = m_account
-        self.m_aid = m_aid
-        self.m_sid = m_sid
 
-    def find_account(self, m_account):
-        """ find aid, stock_symbol, if already in stocks table"""
-        # m_account = input("Enter account number: ")
+    def find_acct(self, conn):
         cursor = self.conn.cursor()
-        m_var = 0
+
         while True:
-            print("aid--acct--acct_type")
+            # macct = input("enter account ")
+            # macct = '%{}%'.format(macct)
+            os.system('clear')
+            sql = "SELECT a.aid, a.short_acct, f.name FROM accounts a, firms f  WHERE a.fid = f.FID"  # " like '%s' AND f.FID=a.fid" % macct"
+
             try:
-                sql = """select a.aid, a.long_acct, a.acct_type FROM accounts a WHERE a.long_acct LIKE '%s' """ % self.m_account
+
                 cursor.execute(sql)
-                row = cursor.fetchone()
-                if len(row) == 0:
-                    return 0
-                else:
-                    while row is not None:
-                        print("{:3d}".format(row[0]), '  ', "{}".format(row[1]))
-
-                self.m_aid = input("Enter account index number (AID)")
-                return self.m_aid
-            except ValueError:
-                print('Error: unknown error')
-
+                results = cursor.fetchall()
+                print("AID | account| firm name")
+                for row in results:
+                    print("{:3d}".format(row[0]), "{:^8s}".format(row[1]), "{:>15s}".format(row[2]))
+                manswer = input("Enter account id ")
+                print("id: ", manswer)
+                yn = input('wait')
+                return manswer
+            except:
+                print('error: unable to find data')
+                yn = input('line 33')
+                return 0
 
     def find_symbol(self, m_aid, m_symbol):
     # def find_symbol(self, m_aid,  m_symbol, m_sid):
@@ -82,10 +70,10 @@ class Find:
             except:
                 print("-undetermined error")
                 print("msid: ", m_sid)
-                yn = input("waiting at line 73")
+                yn = input("waiting at line 85")
             finally:
                 print("msid: ", m_sid)
-                yn = input("waiting at line 76")
+                yn = input("waiting at line 88")
                 return m_sid
 
 
@@ -99,8 +87,8 @@ class Insert:
         self.m_sid = m_sid
 
     def insert_price(self, m_symbol, m_effective_date, m_price, m_sid):
-        print("1121 m_sid: ", m_sid)
-        yn = input("waiting at line 122")
+        print("L102 m_sid: ", m_sid)
+        yn = input("waiting at line 103")
 
         cursor = self.conn.cursor(buffered=True)
 
@@ -121,7 +109,7 @@ class Insert:
         print("date: ", self.m_effective_date)
         print("stock index #: ", self.m_sid)
 
-        yn= input("waiting at line 125")
+        yn= input("waiting at line 124")
         # noinspection SqlResolve
         sql = """INSERT INTO test_prices (symbol, effective_date, prices, sid ) VALUES (%s, %s, %s, %s)"""
         params = (self.m_symbol, self.m_effective_date, self.m_price, self.m_sid)
@@ -134,65 +122,21 @@ class Insert:
 
 def main(i1=None, f1=None):
     conn = MakeConnection.get_config()
+
+    fa = Find(conn)
+
     if not conn:
-        print("no connection fl65")
-
-    # class find
-    m_symbol = ' '
-    m_account = ' '
-    m_aid = ' '
-    m_sid = ' '
-
-
-    # class Find
-    # m_var = ' '
-
-    # class Insert
-    # m_symbol = " "
-    m_date = " "
-    m_price = " "
-    # m_sid = 0
-
-
-    f1 = Find(conn, m_symbol, m_account, m_aid, m_sid)
-    # i1 = Insert().insert
-    # print("170 m_sid: ", m_sid)
-    # yn = input("waiting at line 171")
-
-    i1 = Insert(conn, m_symbol, m_date, m_price, m_sid)
-
-    # find, insert firm name
+        print("no connection")
     while True:
+        m_aid = fa.find_acct(conn)
+        # print("Aid: ", m_aid)
 
-        #find account
-        m_account = input("Account#: ")
-        m_account = '%{}%'.format(m_account)
-        m_aid = f1.find_account(m_account)
-
-
-        # find symbol-
-        #   if no symbol, insert price
-        m_symbol = input("L172 Enter stock_symbol: ")
-        print("Symbol, aid", m_symbol, m_aid)
-        yn = ('Waiting at line 168)')
-        m_sid = f1.find_symbol(m_aid, m_symbol)
-        print("185 m_sid: ", m_sid)
-        yn = input("waiting at line 186")
-
-        while True:
-            # m_price = input("Enter new price: ")
-            # m_date = input("Enter price date: ")
-            print("m_symbol: ", m_symbol)
-            print("l192 m-sid: ", m_sid)
-            yn = input("waiting at line 193")
-            i1.insert_price(m_symbol, m_date, m_price, m_sid)
-            # print('m_aid: ', m_aid)
-
-            yn = input("Continue (y/n)?")
-            if yn == 'y' or yn == 'Y':
-                break
-            else:
-                return
+        # rp = Report(conn, m_aid)
+        # rp.report()
+        # yn = input('quit (y/n)')
+        yn = input('L140 waiting')
+        if yn == 'y' or yn == 'Y':
+            break
 
 
 if __name__ == '__main__':

@@ -32,10 +32,10 @@ def get_config():
         # cursor = conn.cursor()
         # print("connected")
         # return cursor
-        # print("Successful", conn)
+        print("connected")
         return conn
     except Exception as e:
-        # print("no connection")
+        print("no connection")
         return 0
 
 
