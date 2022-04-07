@@ -80,27 +80,27 @@ class EditFirm:
             return 0
 
     def edit_firms(self):
-        try:
-            # self.mfid = self.mvar
-            cursor = self.conn.cursor()
-            print('cursor', cursor)
-            yn = 'Waiting at line 87'
 
-            sql = """SELECT * from firms where fid = '%s'""" % self.mfid
-            cursor.execute(sql)
-            results = cursor.fetchone()
+        # self.mfid = self.mvar
+        cursor = self.conn.cursor()
+        print('cursor', cursor)
+        yn = 'Waiting at line 87'
 
-            for row in results:
-                # sql = """SELECT * from firms where fid = '%s'""" % self.mfid
-                # cursor.execute(sql)
-                # results = cursor.fetchone()
-                self.mfid = int(results[0])
-                self.mname = results[1]
-                self.mstreet = results[2]
-                self.mCityStateZip = results[3]
-                self.mAgent = results[4]
-                self.mphone = results[5]
-                self.memail = results[6]
+        sql = """SELECT * from firms where fid = '%s'""" % self.mfid
+        cursor.execute(sql)
+        results = cursor.fetchone()
+
+        for row in results:
+            # sql = """SELECT * from firms where fid = '%s'""" % self.mfid
+            # cursor.execute(sql)
+            # results = cursor.fetchone()
+            self.mfid = int(results[0])
+            self.mname = results[1]
+            self.mstreet = results[2]
+            self.mCityStateZip = results[3]
+            self.mAgent = results[4]
+            self.mphone = results[5]
+            self.memail = results[6]
 
 
         print("fid:          {}".format(self.mfid))
@@ -126,8 +126,7 @@ class EditFirm:
             col = 'phone'
         elif mcolumn == '6':
             col = 'email'
-        elif mcolumn =='q' or mcolumn == 'Q':
-            break
+
 
         # get and insert values
         mnewdata = input("Enter new value: ")

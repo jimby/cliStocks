@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import MakeConnection
-import os
+from os import system
 
 class FindStock:
     cursor = ''
@@ -71,7 +71,7 @@ def main():
  
 if __name__ == '__main__':
     main()
-    clear()
+    system.clear()
     # cursor.close
     # conn.close
     # import sys

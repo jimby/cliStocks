@@ -1,22 +1,14 @@
 #!/usr/bin/env python
-# edit first, then if no price, insert
 import MakeConnection
 import os
-import datetime
-
-def validate(date_text):
-    try:
-        datetime.datetime.strptime(date_text, '%Y-%m-%d')
-        return 1
-    except ValueError:
-        print("L23 malformed date entry", date_text)
-        return 0
 
 
-class Find:
-    cursor = ' '
-    macct = ' '
+class FindAcct:
+    cursor = ''
+    macct = ''
+
     def __init__(self, conn):
+        #     self.name = name    # instance variable unique to each instance
         self.conn = conn
 
     def find_acct(self, conn):
@@ -44,86 +36,42 @@ class Find:
                 yn = input('line 33')
                 return 0
 
-    def find_symbol(self, m_aid, m_symbol):
-    # def find_symbol(self, m_aid,  m_symbol, m_sid):
-        """ find aid, stock_symbol, if already in stocks table"""
+class edit:
 
-        cursor = self.conn.cursor()
-        # self.m_aid = m_aid
-        # self.m_symbol = m_symbol
-        # self.m_sid = m_sid
-        m_var = 0
-        while True:
-            # def find_account(self):
-            print("SID -SYMBOL NAME - ----------------LOT - -QTY - -PRICE")
-            try:
 
-                # m_aid = m_aid + ' collate utf8mb_general_ci'
-                sql = "SELECT s.sid, s.stock_symbol, s.name, s.lot_number, s.quantity, s.price FROM stocks s WHERE s.aid LIKE %s AND s.stock_symbol LIKE %s "
-                params = (self.m_aid, self.m_symbol)
-                cursor.execute(sql, params)
-                row = cursor.fetchone()
-                while row is not None:
-                    print(row)
-                    row = cursor.fetchone()
-                m_sid = input("l101 If you see your stock symbol here, enter index number (sid), else enter 0...")
-            except:
-                print("-undetermined error")
-                print("msid: ", m_sid)
-                yn = input("waiting at line 85")
-            finally:
-                print("msid: ", m_sid)
-                yn = input("waiting at line 88")
-                return m_sid
+class insert:
 
 
 
-class Insert:
-    def __init__(self, conn, m_symbol ,m_effective_date, m_price, m_sid):
+
+class Report:
+    def __init__(self, conn, maid):
         self.conn = conn
-        self.m_symbol = m_symbol
-        self.m_effective_date = m_effective_date
-        self.m_price = m_price
-        self.m_sid = m_sid
+        self.maid = maid
 
-    def insert_price(self, m_symbol, m_effective_date, m_price, m_sid):
-        print("L102 m_sid: ", m_sid)
-        yn = input("waiting at line 103")
+    def report(self):
+        cursor = self.conn.cursor()
+        print(self.maid)
+        sql = """select p.effective_date, s.trans_date, a.long_acct, s.name, p.symbol, \
+            (100 * ((p.prices - s.price) / s.price) / (DATEDIFF(p.effective_date, s.trans_date) / 365.25)) as APR from\
+            ((stocks s inner join accounts a on s.aid=a.aid) inner join prices p on s.sid=p.sid) where s.aid = '%s'\
+            order by NAME asc;""" % self.maid
+        cursor.execute(sql)
+        rows = cursor.fetchall()
+        # print(rows.rowcount())
+        print("Bought-------Latest-----Acct------Name-------Symbol----------------APR")
+        for row in rows:
+            print("{:%m/%d/%Y}".format(row[0]), "{:%m/%d/%Y}".format(row[1]), row[2], "{:35s}".format(row[3]),
+                  "{:4s}".format(row[4]), "{:6.2f}".format(row[5]) + '%')
+            # print(row)
 
-        cursor = self.conn.cursor(buffered=True)
-
-        # print("symbol: ", m_symbol)
-        self.m_symbol = m_symbol
-        self.m_price = input("Enter current stock price:  ")
-        # self.m_effective_date = input("Enter date of new price (YYYY-MM-DD): ")
-        self.m_sid = m_sid
-
-        while True:
-            self.m_effective_date = input("Enter date of price (YYYY-MM-DD) : ")
-            t = validate(self.m_effective_date)
-            if t:
-                break
-
-        print("m_symbol", self.m_symbol)
-        print("price: ", self.m_price)
-        print("date: ", self.m_effective_date)
-        print("stock index #: ", self.m_sid)
-
-        yn= input("waiting at line 124")
-        # noinspection SqlResolve
-        sql = """INSERT INTO test_prices (symbol, effective_date, prices, sid ) VALUES (%s, %s, %s, %s)"""
-        params = (self.m_symbol, self.m_effective_date, self.m_price, self.m_sid)
-        cursor.execute(sql, params)
-        self.conn.commit()
-
-        # self.m_fid = int(cursor.lastrowid)
-        # return self.m_fid
+        # yn = input("continue?")
 
 
-def main(i1=None, f1=None):
+def main():
     conn = MakeConnection.get_config()
 
-    fa = Find(conn)
+    fa = FindAcct(conn)
 
     if not conn:
         print("no connection")
@@ -131,13 +79,19 @@ def main(i1=None, f1=None):
         m_aid = fa.find_acct(conn)
         # print("Aid: ", m_aid)
 
-        # rp = Report(conn, m_aid)
-        # rp.report()
-        # yn = input('quit (y/n)')
-        yn = input('L140 waiting')
+        rp = Report(conn, m_aid)
+        rp.report()
+        yn = input('quit (y/n)')
+
         if yn == 'y' or yn == 'Y':
             break
 
 
 if __name__ == '__main__':
     main()
+    os.system('clear')
+    # cursor.close
+    # conn.close
+    # import sys
+    # find_menuNew
+
