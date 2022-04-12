@@ -12,7 +12,7 @@ def validate(date_text):
         return 0
 
 
-class FindAcct:
+class Find:
     cursor = ''
     macct = ''
 
@@ -37,8 +37,8 @@ class FindAcct:
                 for row in results:
                     print("{:3d}".format(row[0]), "{:^8s}".format(row[1]), "{:>15s}".format(row[2]))
                 manswer = input("Enter account id ")
-                print("id: ", manswer)
-                yn = input('wait')
+                # print("id: ", manswer)
+                # yn = input('wait')
                 return manswer
             except:
                 print('error: unable to find data')
@@ -46,7 +46,7 @@ class FindAcct:
                 return 0
 
 #EditPrices
-class EditPrices:
+class Edit:
     def __init__(self, mvar, conn, mpid, msymbol, meffective_date, mprices, msid):
         #     self.name = name    # instance variable unique to each instance
         self.mvar = mvar
@@ -143,93 +143,22 @@ class EditPrices:
             cursor.execute("""UPDATE test_prices set {}=%s where pid=%s""".format(col), (mnewdata, self.mpid))
             self.conn.commit()
 
-##InserPrices
-class Insert:
-    def __init__(self, conn, m_symbol ,m_effective_date, m_price, m_sid):
-        self.conn = conn
-        self.m_symbol = m_symbol
-        self.m_effective_date = m_effective_date
-        self.m_price = m_price
-        self.m_sid = m_sid
-
-    def insert_price(self, m_symbol, m_effective_date, m_price, m_sid):
-        print("1121 m_sid: ", m_sid)
-        yn = input("waiting at line 122")
-
-        cursor = self.conn.cursor(buffered=True)
-
-        # print("symbol: ", m_symbol)
-        self.m_symbol = m_symbol
-        self.m_price = input("Enter current stock price:  ")
-        # self.m_effective_date = input("Enter date of new price (YYYY-MM-DD): ")
-        self.m_sid = m_sid
-
-        while True:
-            self.m_effective_date = input("Enter date of price (YYYY-MM-DD) : ")
-            t = validate(self.m_effective_date)
-            if t:
-                break
-
-        print("m_symbol", self.m_symbol)
-        print("price: ", self.m_price)
-        print("date: ", self.m_effective_date)
-        print("stock index #: ", self.m_sid)
-
-        yn= input("waiting at line 125")
-        # noinspection SqlResolve
-        sql = """INSERT INTO test_prices (symbol, effective_date, prices, sid ) VALUES (%s, %s, %s, %s)"""
-        params = (self.m_symbol, self.m_effective_date, self.m_price, self.m_sid)
-        cursor.execute(sql, params)
-        self.conn.commit()
-
-        # self.m_fid = int(cursor.lastrowid)
-        # return self.m_fid
-
-
-
-
-
-
-class Report:
-    def __init__(self, conn, maid):
-        self.conn = conn
-        self.maid = maid
-
-    def report(self):
-        cursor = self.conn.cursor()
-        print(self.maid)
-        sql = """select p.effective_date, s.trans_date, a.long_acct, s.name, p.symbol, \
-            (100 * ((p.prices - s.price) / s.price) / (DATEDIFF(p.effective_date, s.trans_date) / 365.25)) as APR from\
-            ((stocks s inner join accounts a on s.aid=a.aid) inner join prices p on s.sid=p.sid) where s.aid = '%s'\
-            order by NAME asc;""" % self.maid
-        cursor.execute(sql)
-        rows = cursor.fetchall()
-        # print(rows.rowcount())
-        print("Bought-------Latest-----Acct------Name-------Symbol----------------APR")
-        for row in rows:
-            print("{:%m/%d/%Y}".format(row[0]), "{:%m/%d/%Y}".format(row[1]), row[2], "{:35s}".format(row[3]),
-                  "{:4s}".format(row[4]), "{:6.2f}".format(row[5]) + '%')
-            # print(row)
-
-        # yn = input("continue?")
-
 
 def main():
     conn = MakeConnection.get_config()
 
-    fa = FindAcct(conn)
-
+    fa = Find(conn)
     if not conn:
         print("no connection")
+        yn = input('return...')
+        return
     while True:
         m_aid = fa.find_acct(conn)
         # print("Aid: ", m_aid)
 
-        rp = Report(conn, m_aid)
-        rp.report()
-        yn = input('quit (y/n)')
+        yn = input('continue (y/n)')
 
-        if yn == 'y' or yn == 'Y':
+        if yn == 'n' or yn == 'N':
             break
 
 

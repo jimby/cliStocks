@@ -15,7 +15,7 @@ mfile = ''
 def get_config():
         
     muser = input('Enter user name: ')
-    mpwd = getpass('Enter user password: ')
+    mpwd  =  input('Enter user password: ')
     mfile = input("Enter database name: ")
     
         
