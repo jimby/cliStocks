@@ -85,7 +85,7 @@ class EditAcct:
         while True:
             # self.mfid = self.mvar
             cursor = self.conn.cursor()
-            print('self.maid', self.maid)
+            # print('self.maid', self.maid)
             # yn = 'Waiting at line 99'
             sql = """SELECT a.aid, f.name, a.short_acct, a.long_acct, a.acct_type  FROM accounts a, firms f WHERE f.FID = a.fid AND a.aid = '%s' """ % self.maid
             # sql = """SELECT a.aid, a.short_acct, a.long_acct, f.name, f.FID from accounts a, firms f where aid = '%s'""" % self.maid

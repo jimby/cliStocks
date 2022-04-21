@@ -32,6 +32,8 @@ def get_config():
         # cursor = conn.cursor()
         # print("connected")
         # return cursor
+        print('l35 conn',conn)
+        yn = input("wating at line36")
         print("connected")
         return conn
     except Exception as e:

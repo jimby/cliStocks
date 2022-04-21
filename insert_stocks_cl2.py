@@ -19,84 +19,93 @@ def validate(date_text):
 
 class Find:
 
-    def __init__(self, conn, m_symbol, m_account, m_aid, m_fid, m_lot, ):
-        self.m_account = m_account
+    def __init__(self, conn):
+    #        self.m_account = m_account
         self.conn = conn
-        self.m_symbol = m_symbol
-        self.m_aid = m_aid
-        self.m_fid = m_fid
-        self.m_lot = m_lot
+    #        self.m_symbol = m_symbol
+    #        self.m_aid = m_aid
+    #        self.m_fid = m_fid
+    #        self.m_lot = m_lot
 
 # find_firm
     def find_firm(self):
         """ find aid, stock_symbol, if already in stocks table"""
 
+        m_fid = 0
+        m_firm = input("Enter investment firm name: ")
+        m_firm = '%' + m_firm + '%'
+
         cursor = self.conn.cursor()
-        sql = "SELECT f.name, f.FID FROM firms f WHERE f.name like '%s'" % self.mfirm
+        sql = "SELECT f.name, f.FID FROM firms f WHERE f.name like '%s'" % m_firm
         cursor.execute(sql)
 
         data = cursor.fetchall()
 
         if len(data) == 0:
-            # print(len(data))
-            # t = input("line: 51")
-            # print('not found')
-            # print(m_var, "not found...")
-            # yn = '0'
             return 0
         else:
             print("ID-----FIRM NAME")
             for row in data:
                 print("{}".format(row[1]), "    ", "{}".format(row[0]))
-            self.m_firm = input("Enter fid, y/n:")
-            return self.fid
+            m_firm = input("Enter ID (fid), y/n:")
+            return m_fid
             
 
         cursor.close()
         # self.conn.close()
 
 # find account
-    def find_account(self, m_account):
-        """ find aid, stock_symbol, if already in stocks table"""
+    def find_account(self):
+
         m_account = input('L30 long_acct: ')
-        self.m_account = m_account
+        m_account = m_account
 
         cursor = self.conn.cursor()
-        sql = "SELECT a.aid, a.short_acct, a.long_acct, a.acct_type FROM accounts a  WHERE a.long_acct like '%s' " % self.m_account
+        sql = "SELECT a.aid, a.long_acct, a.acct_type FROM accounts a  WHERE a.long_acct like '%s' " % m_account
         cursor.execute(sql)
 
-        row = cursor.fetchone()
-        while row is not None:
-            print(row)
-            row = cursor.fetchone()
-        self.m_aid = input("Enter aid:")
-        return self.m_aid
+        data = cursor.fetchall()
+
+        if len(data) == 0:
+            return 0
+        else:
+            print('ID--ACCOUNT--ACCOUNT TYPE')
+            for row in data:
+                print(row)
+
+            m_aid = input("Enter account ID (aid) :")
+        return m_aid
 
 # find symbol
-    def find_stock(self):
-        """ find aid, stock_symbol, if already in stocks table"""
-        # print("l92 find stock lot...")
-        # self.m_aid = m_aid
-        self.m_symbol = input('L 48 Enter stock symbol: ')
+    def find_stock(self, m_aid, m_fid):
+
+        m_name = input('L 48 Enter stock name: ')
+        m_name = '%' + m_name + '%'
         while True:
-            # def find_account(self):
-            try:
+            m_sid = 0
+            cursor = self.conn.cursor()
 
-                cursor = self.conn.cursor()
+            # sql = """SELECT stocks.sid, accounts.long_acct, stocks.name, stocks.stock_symbol, stocks.trans_date FROM accounts
+            # INNER JOIN firms on accounts.fid = firms.FID INNER JOIN stocks.aid = accounts.aid
+            # where stocks.name like '%s' """ % m_name
+            sql = "SELECT stocks.sid, stocks.stock_symbol, stocks.quantity, stocks.name, stocks.price, prices.prices," \
+                  " accounts.long_acct, prices.effective_date from prices" \
+                  " INNER JOIN stocks ON prices.sid = stocks.sid" \
+                  " INNER JOIN accounts ON stocks.aid=accounts.aid" \
+                  " INNER JOIN firms ON accounts.FID = firms.fid" \
+                  " WHERE stocks.stock_symbol LIKE '%s' and " % m_name
 
-                # m_aid = m_aid + ' collate utf8mb_general_ci'
-                sql = """SELECT s.sid, a.long_acct, s.stock_symbol, s.lot_number, s.trans_date FROM stocks.s, accounts.a """
-                cursor.execute(sql)
-                row = cursor.fetchone()
-                print("sid---acct---symbol--lot---date")
-                while row is not None:
-                    print(row)
-                    row = cursor.fetchone()
-                self.m_sid = input("If you see your symbol, enter index number, else enter 0...")
-            except:
-                print("undetermined error")
-            finally:
-                    return self.m_sid
+            cursor.execute(sql)
+            data = cursor.fetchall()
+            print("ID---ACCT---NAME--SYMBOL--LOT---DATE")
+            #while row is not None:
+            for row in data:
+                print(row)
+                #print("{}".format(row[0]), "{}".format(row[1]), "{}".format(row[2]), "{}".format(row[3]), "{}".format(row[4]), "{}".format(row[5]), "{}".format(row[6]), "{}".format(row[7]))
+                # row = cursor.fetchone()
+
+            m_sid = input("If you see your symbol, enter index number (sid), else enter 0...")
+            return m_sid
 
 # find stock_lot
 #    def find_stock_lot(self):
@@ -127,14 +136,14 @@ class Find:
 
 
 class Insert:
-    def __init__(self, conn, m_sid, m_stock_symbol, m_name, m_quantity, m_price,
+    def __init__(self, conn, m_sid, m_stock_symbol, m_stock_name, m_quantity, m_price,
             m_fee, m_trans_date, m_buyorsell, m_aid, m_fid, m_agent, m_city_state_zip, m_email,
             m_FID, m_phone, m_street, m_acct_type, m_long_acct, m_short_acct):
 
         self.conn = conn
         self.m_sid = m_sid
         self.m_stock_symbol = m_stock_symbol
-        self.m_name = m_name
+        self.m_name = m_stock_name
         self.m_quantity = m_quantity
         self.m_price = m_price
         self.m_fee = m_fee
@@ -244,39 +253,36 @@ def main(i1=None, f1=None):
     m_long_acct = ' '
     m_short_acct = ' '
 
-    f1 = Find(conn, m_var)
+    f1 = Find(conn)
     # i1 = Insert().insert
-    i1 = Insert(conn, m_sid, m_stock_symbol, m_name, m_quantity, m_price, m_fee, m_trans_date, m_buyorsell, m_aid,
-        m_fid, m_agent, m_city_state_zip, m_email, m_FID, m_phone, m_street, m_acct_type,
-        m_long_acct, m_short_acct)
+    #i1 = Insert(conn, m_sid, m_stock_symbol, m_name, m_quantity, m_price, m_fee, m_trans_date, m_buyorsell, m_aid,
+    #    m_fid, m_agent, m_city_state_zip, m_email, m_FID, m_phone, m_street, m_acct_type,
+    #    m_long_acct, m_short_acct)
 
     # find, insert firm name
     while True:
-
-        m_aid = f1.find_account(m_long_acct)
-        print(m_aid)
-        # m_aid = int(m_aid)
-
-        yn = f1.find_stock(m_aid)
-        if yn == 'Y' or yn == 'y':
-            yn = input("Do you want to search for more lots?")
-            if yn == 'Y' or yn == 'y':
-                continue
-        else:
-            yn = input("Do you want to add another lot of  stocks? (y/n")
-
+        m_fid = f1.find_firm()
+        # print("m_fid: ", m_fid)
+        # yn = input('wait at l250')
+        yn = input('L252 find account (y/n)?')
         if yn == 'N' or yn == 'n':
             break
-    # find, insert account number
-        while True:
-            m_sid = i1.insert_stock(m_aid)
-            # print('m_aid: ', m_aid)
 
-            yn = input("Continue (y/n)?")
-            if yn == 'y' or yn == 'Y':
+        while True:
+            m_aid = f1.find_account()
+            print('m_aid: ', m_aid)
+            yn = input('wait at line 255')
+            yn = input('L260 find stock name? (y/n)')
+            if yn == 'N' or yn == 'n':
                 break
-            else:
-                return
+
+            while True:
+                m_sid = f1.find_stock(m_aid, m_fid)
+                print('m_sid: ', m_sid)
+                yn = input('wait at line 255')
+                yn = input('continue with m_sid? (y/n)')
+                if yn == 'N' or yn == 'n':
+                    break
 
 
 
