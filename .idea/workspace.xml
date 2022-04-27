@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8af58988-74cf-4e3a-8850-d5488bea8d5a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/EditAddCurrentPrices.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EditAddCurrentPrices.py" beforeDir="false" afterPath="$PROJECT_DIR$/EditAddCurrentPrices.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MakeConnection.py" beforeDir="false" afterPath="$PROJECT_DIR$/MakeConnection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit_accts_cl2.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit_accts_cl2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/insert_stocks_cl2.py" beforeDir="false" afterPath="$PROJECT_DIR$/insert_stocks_cl2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/bin/activate" beforeDir="false" afterPath="$PROJECT_DIR$/venv/bin/activate" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +37,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mariadb" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -47,10 +45,10 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.EditAddCurrentPrices">
-    <configuration name="EditAddCurrentPrices" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="EditAddCurrentPrices" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="cliStocks" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -163,15 +161,14 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.EditAddCurrentPrices" />
       <item itemvalue="Python.insert_prices" />
       <item itemvalue="Python.find_acct_symbol" />
       <item itemvalue="Python.MenuTest" />
       <item itemvalue="Python.insert_stocks_cl2" />
-      <item itemvalue="Python.EditAddCurrentPrices" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.EditAddCurrentPrices" />
         <item itemvalue="Python.insert_stocks_cl2" />
         <item itemvalue="Python.MenuTest" />
         <item itemvalue="Python.insert_prices" />
@@ -217,7 +214,19 @@
       <workItem from="1650303798677" duration="876000" />
       <workItem from="1650379221840" duration="3091000" />
       <workItem from="1650479232254" duration="1647000" />
-      <workItem from="1650552375485" duration="931000" />
+      <workItem from="1650552375485" duration="934000" />
+      <workItem from="1650638638932" duration="632000" />
+      <workItem from="1650728241666" duration="1407000" />
+      <workItem from="1650729982399" duration="274000" />
+      <workItem from="1650734228886" duration="681000" />
+      <workItem from="1650744815890" duration="5415000" />
+      <workItem from="1650817627050" duration="927000" />
+      <workItem from="1650895624770" duration="3075000" />
+      <workItem from="1650901519046" duration="737000" />
+      <workItem from="1650932003869" duration="612000" />
+      <workItem from="1650947478391" duration="1356000" />
+      <workItem from="1650982311877" duration="2240000" />
+      <workItem from="1651022408658" duration="3153000" />
     </task>
     <servers />
   </component>
@@ -247,7 +256,7 @@
     <SUITE FILE_PATH="coverage/cliStocks$find_acct_symbol.coverage" NAME="find_acct_symbol Coverage Results" MODIFIED="1649254147559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$insert_stocks_cl2.coverage" NAME="insert_stocks_cl2 Coverage Results" MODIFIED="1650292872212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$insert_stocks.coverage" NAME="insert_stocks Coverage Results" MODIFIED="1649018944938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/cliStocks$EditAddCurrentPrices.coverage" NAME="EditAddCurrentPrices Coverage Results" MODIFIED="1650303813012" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cliStocks$EditAddCurrentPrices.coverage" NAME="EditAddCurrentPrices Coverage Results" MODIFIED="1651031114850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$insert_prices.coverage" NAME="insert_prices Coverage Results" MODIFIED="1649426363035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$EditAddCurrentPrices_ph.coverage" NAME="EditAddCurrentPrices.ph Coverage Results" MODIFIED="1650294271721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$ReportGains.coverage" NAME="ReportGains Coverage Results" MODIFIED="1649084081027" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

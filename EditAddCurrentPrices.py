@@ -4,68 +4,68 @@ from os import system
 import datetime
 
 
-class EditPrices:
+class Prices:
     def __init__(self, conn):
         #     self.name = name    # instance variable unique to each instance
         self.conn = conn
 
     # noinspection SqlResolve
-    def FindPrices(self):
+    def choose_symbol(self, conn):
 
-        """ find aid, stock_symbol, if already in stocks table"""
         mcp = 0
         cursor = self.conn.cursor()
 
         while True:
             #edit price, date
             while True:
-                msymbol = input("enter stock symbol: ")
-                msymbol = '%{}%'.format(self.msymbol)
-                sql = "select distinct cp.cid, s.stock_symbol, cp.price, cp.date from stocks s inner join CurrentPrices cp on s.stock_symbol where s.stock_symbol like 's' " % msymbol
+                m_symbol = input("enter stock symbol: ")
+                m_symbol = '%{}%'.format(m_symbol)
+                sql = "select distinct cp.cid, cp.symbol, cp.price, cp.date from CurrentPrices cp where cp.symbol like 's' " % m_symbol
                 cursor.execute(sql)
                 data = cursor.fetchall()
                 if len(data) == 0:
                     print("No symbol found.")
-                    yn = input('Add symbol (y/n)? ')
-                    if yn == 'Y' or yn == 'y':
-                        break
+                    yn = input('wait ...')
+                    continue
                 else:
                     print("ID  symbol|   |price             |Date")
                     for row in data:
-                        print("{a:<15}".format(a='ID'),"{}".format(row[0]),"\n",
-                                "{a:<15}".format(a='Symbol'), "{}".format(row[1]),"\n",
+                        print("{a:<15}".format(a='ID'),"{}".format(row[0]), "\n",
+                                "{a:<15}".format(a='Symbol'), "{}".format(row[1]), "\n",
                                 "{a:<15}".format(a='Price'), "{}".format(row[2]), "\n",
-                                "{a:<15}".format(a='Price'),  "{}".format(row[3]),"\n\n"
-                                                                                  "")
-                mcp = input("Enter id or quit: (q)?")
-            return mcp
+                                "{a:<15}".format(a='Price'),  "{}".format(row[3]), "\n\n")
+                mcp = input("Enter id:")
+                if mcp:
+                    return mcp
             # print('pid: ', self.mpid)
 
 
-    def EditPrices(self):
+    def edit_prices(self):
         while True:
             cursor = self.conn.cursor()
 
             sql = """SELECT * from prices where pid = '%s'""" % self.mpid
             cursor.execute(sql)
             results = cursor.fetchone()
-
-            for row in results:
-                # sql = """SELECT * from pricess where fid = '%s'""" % self.mpid
-                # cursor.execute(sql)
-                # results = cursor.fetchone()
+            if results is not None:
+                print("ID ---SYMBOL----DATE----PRICE ")
+            else:
+                yn = ('Empty table...')
+                return
+            while results is not None:
                 self.mpid = int(results[0])
                 self.msymbol = results[1]
+                # "{0:%m/%d/%Y}",format(results[2])
                 self.meffective_date = results[2]
                 self.mprices = results[3]
-                self.msid = results[4]
+                # self.msid = results[4]
 
-            print("\npid:          {}".format(self.mpid))
-            print("symbol =   {}".format(self.msymbol))
+            print("\npid:          {O:7.2f}".format(self.mpid))
+            print("symbol =   {0:<6}".format(self.msymbol))
             print("sid =      {} ".format(self.msid))
             # print("1) name =       {}".format(self.mname))
-            print("\n1) date =     {}".format(self.meffective_date))
-            print("2) price =    {}".format(self.mprices))
+            print("\n1) date =     {0:%m/%d/%Y}".format(self.meffective_date))
+            print("2) price =    {0:7.2f}".format(self.mprices))
 
             # print("6) email =      {}".format())
             mcolumn = input("Enter column number to edit (q=quit)")
@@ -93,66 +93,75 @@ class EditPrices:
             cursor.execute("""UPDATE test_prices set {}=%s where pid=%s""".format(col), (mnewdata, self.mpid))
             self.conn.commit()
 
-
-class InsertPrices:
-
-    def __init__(self, conn):
-        self.conn = conn
-
     def insert_prices(self):
-        #fixup symbol
+        # fixup symbol
         m_symbol = input('Enter stock symbol: ')
         m_symbol = m_symbol.replace("%", "")
-
+        print('m_symbol: ',m_symbol )
         # fixup date
         m_date = input('Enter date: MM/DD/YYYY ')
         month, day, year = map(int, m_date.split('/'))
         m_date = datetime.date(year, month, day)
+        print('m_date: ', m_date)
 
         m_price = input('Enter price:')
+        print('m_price: ', m_price)
+        yn = input('waiting at line 109')
 
         cursor = self.conn.cursor()
         # this sql actually works!!!!
-        sql = """INSERT INTO CurrentPrices (date, price, symbol) VALUES ('%s', 's', 's') """ % m_date, m_price, m_symbol
-        cursor.execute(sql)
+        sql = """INSERT INTO CurrentPrices (symbol, price, date) VALUES (%s, %s, %s) """
+        cursor.execute(sql, (m_symbol, m_price, m_date))
         self.conn.commit()
+        return
 
     def show_prices(self):
         # show prices for selected symbol
+        m_symbol = input('enter symbol: ')
         """ find firm name, if already in firm table"""
         cursor = self.conn.cursor()
-        self.firm_name = '%' + self.firm_name + '%'
-        sql = """ SELECT fid, name FROM firms WHERE name LIKE '%s' """ % self.firm_name
+        m_symbol = '%' + m_symbol + '%'
+        sql = """ SELECT cid, symbol, price, date FROM CurrentPrices WHERE symbol LIKE '%s' """ % m_symbol
         cursor.execute(sql)
         rows = cursor.fetchall()
-        print("ID-----FIRM NAME")
+        print("ID-----SYMBOL--PRICE--DATE")
         for row in rows:
-            print("{}".format(row[1]), "    ", "{}".format(row[0]))
+            print("{}".format(row[0]), "    ", "{0:<6}".format(row[1]), "{0:.3f}".format(row[2]), "{0:%m/%d/%Y}".format(row[3]))
 
-        yn = input("Do you see your firm here ? (q=quit):")
-        if yn == 'N' or yn == 'n':
-            return yn
-
-
+        yn = input("Edit, Add, or Quit (E/A/Q): ")
+        if (yn == 'E' or yn == 'e'):
+            mcid = input("Enter ID to edit: ")
+            return mcid
+        elif( yn == 'A' or yn == 'a'):
+            return 'A'
+        elif(yn == 'Q' or yn == 'q'):
+            return
 
 def main():
+
     # mysql connection
     conn = MakeConnection.get_config()
-    e1 = EditPrices(conn)
+    # print('Line 141 def main', conn)
 
+    p = Prices(conn)
+    # yn = input('l137: ')
 
-
+# start 1st loop
     while True:
-        # m_var = input("prices: ")
-        # m_var = '%{}%'.format(m_var)
+        mp = p.show_prices()
+        if mp == 'mcid':
+            p.edit_prices()
+        elif mp == 'A':
+            p.insert_prices()
+        elif (mp=='Q' or mp == 'q'):
+            break
 
-        # if m_var == "%%":
-        #     print("line 92, %%")
-        #     break
 
 
-        system('clear')
-    conn.close()
+
+
+# quit or continue?
+
 
 
 if __name__ == '__main__':
