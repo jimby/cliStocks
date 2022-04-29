@@ -5,9 +5,10 @@ import datetime
 
 
 class Prices:
-    def __init__(self, conn):
+    def __init__(self, conn, mpid):
         #     self.name = name    # instance variable unique to each instance
         self.conn = conn
+        self.mpid = mpid
 
     # noinspection SqlResolve
     def choose_symbol(self, conn):
@@ -40,7 +41,7 @@ class Prices:
             # print('pid: ', self.mpid)
 
 
-    def edit_prices(self):
+    def edit_prices(self, mp):
         while True:
             cursor = self.conn.cursor()
 
@@ -60,7 +61,7 @@ class Prices:
                 self.mprices = results[3]
                 # self.msid = results[4]
 
-            print("\npid:          {O:7.2f}".format(self.mpid))
+            print("\npid:          {:7.2f}".format(self.mpid))
             print("symbol =   {0:<6}".format(self.msymbol))
             print("sid =      {} ".format(self.msid))
             # print("1) name =       {}".format(self.mname))
@@ -117,7 +118,7 @@ class Prices:
 
     def show_prices(self):
         # show prices for selected symbol
-        m_symbol = input('enter symbol: ')
+        m_symbol = input('l120 enter symbol: ')
         """ find firm name, if already in firm table"""
         cursor = self.conn.cursor()
         m_symbol = '%' + m_symbol + '%'
@@ -130,32 +131,42 @@ class Prices:
 
         yn = input("Edit, Add, or Quit (E/A/Q): ")
         if (yn == 'E' or yn == 'e'):
-            mcid = input("Enter ID to edit: ")
-            return mcid
+            E = input("Enter ID to edit: ")
+            E = int(E)
+            print(type(E), E)
+            yn = input('Waiting l135')
+            return E                                # <- not returning to main
         elif( yn == 'A' or yn == 'a'):
             return 'A'
         elif(yn == 'Q' or yn == 'q'):
-            return
+            return 'Q'
 
 def main():
-
+    a = 35
+    print('l145',type(a))
     # mysql connection
     conn = MakeConnection.get_config()
     # print('Line 141 def main', conn)
-
-    p = Prices(conn)
+    mpid = 0
+    p = Prices(conn, mpid)
     # yn = input('l137: ')
-
+    mp = p.show_prices()
+    print('l150, MP', mp)
+    yn = input('l151 waiting...')
 # start 1st loop
     while True:
-        mp = p.show_prices()
-        if mp == 'mcid':
+        if type(mp) == "<class 'int'>":
+            print('hurrah')
             p.edit_prices()
         elif mp == 'A':
             p.insert_prices()
-        elif (mp=='Q' or mp == 'q'):
+        elif (mp == 'Q' or mp == 'q'):
+            print('mp: ', mp)
+            yn = input('l162, waiting...')
             break
-
+        else:
+            p.edit_prices(mp)
+        mp = p.show_prices()
 
 
 
