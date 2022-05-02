@@ -24,7 +24,7 @@ class Prices:
             while True:
                 m_symbol = input("enter stock symbol: ")
                 m_symbol = '%{}%'.format(m_symbol)
-                sql = "select cid, symbol, price, date from CurrentPrices  where cid like 's' " % self.m_index
+                sql = "select cid, symbol, price, date from CurrentPrices  where cid = 's' " % self.m_cid
                 cursor.execute(sql)
                 data = cursor.fetchall()
                 if len(data) == 0:
@@ -35,12 +35,9 @@ class Prices:
                     print("ID  symbol|   |price             |Date")
                     for row in data:
                         print("{a:<15}".format(a='ID'), "{}".format(row[0]), "\n",
-
-
-
-                                  "{a:<15}".format(a='Symbol'), "{}".format(row[1]), "\n",
-                                "{a:<15}".format(a='Price'), "{}".format(row[2]), "\n",
-                                "{a:<15}".format(a='Price'),  "{}".format(row[3]), "\n\n")
+                              "{a:<15}".format(a='Symbol'), "{}".format(row[1]), "\n",
+                              "{a:<15}".format(a='Price'), "{}".format(row[2]), "\n",
+                              "{a:<15}".format(a='Price'),  "{}".format(row[3]), "\n\n")
                 mcp = input("Enter id:")
                 if mcp:
                     return mcp
@@ -48,22 +45,27 @@ class Prices:
 
 
     def edit_prices(self):
+        col = ''
         while True:
             cursor = self.conn.cursor()
-            sql = """SELECT * from prices where cid = '%s'""" % self.m_cid
+            print("m_cid equals:", self.m_cid)
+            yn = input("waiting at line 55")
+            sql = """SELECT * from CurrentPrices where cid = %s""" % self.m_cid
             cursor.execute(sql)
             results = cursor.fetchone()
 
             for row in results:
-                self.mcid = int(results[0])
+                self.m_cid = int(results[0])
                 self.m_symbol = results([1])
-                self.m_date = results([2])
-                self.m_price = results([3])
+                self.m_price = results([2])
+                self.m_date = results([3])
+                month, day, year = map(int, self.m_date.split('/'))
+                self.m_date = datetime(year, month, day)
 
-            print("\nID:        {}".format(self.m_cid))
-            print("\n1. symbol:    {}". format(self.m_symbol))
-            print("\n2. price:     {}". format(self.m_price))
-            print("\n3. date:      {}". format(self.m_date))
+            print("\nID:            {}".format(self.m_cid))
+            print("\n1. symbol:     {}". format(self.m_symbol))
+            print("\n2. price:      {}". format(self.m_price))
+            print("\n3. date:       {}". format(self.m_date))
 
             m_column = input("Enter column number to edit (q='quit')")
             if m_column == '1':
@@ -84,9 +86,9 @@ class Prices:
 
     def insert_prices(self):
         # fixup symbol
-        m_symbol = input('Enter stock symbol: ')
-        m_symbol = m_symbol.replace("%", "")
-        print('m_symbol: ',m_symbol )
+        self.m_symbol = input('Enter stock symbol: ')
+        self.m_symbol = self.m_symbol.replace("%", "")
+        print('m_symbol: ', self.m_symbol )
         # fixup date
         m_date = input('Enter date: MM/DD/YYYY ')
         month, day, year = map(int, m_date.split('/'))
@@ -100,7 +102,7 @@ class Prices:
         cursor = self.conn.cursor()
         # this sql actually works!!!!
         sql = """INSERT INTO CurrentPrices (symbol, price, date) VALUES (%s, %s, %s) """
-        cursor.execute(sql, (m_symbol, m_price, m_date))
+        cursor.execute(sql, (self.m_symbol, self.m_price, self.m_date))
         self.conn.commit()
         return
 
@@ -120,40 +122,49 @@ class Prices:
 
         yn = input("Edit, Add, or Quit (E/A/Q): ")
         if (yn == 'E' or yn == 'e'):
-            E = input('Enter symbol ID: ')
-            str = 'E'
-            return E                                # <- not returning to main
+            self.m_cid = row[0]
+            self.m_symbol = row[1]
+            self.m_price = row[2]
+            self.m_date = row[3]
+            month, day, year = map(int, self.m_date.split('/'))
+            self.m_date = datetime.date(year, month, day)
+            self.edit_prices()
+            # return 'E'
+
         elif( yn == 'A' or yn == 'a'):
+            self.insert_prices()
             return 'A'
         elif(yn == 'Q' or yn == 'q'):
             return 'Q'
 
 def main():
-    a = 35
-    d = ''
-    mindex = 0
+    # a = 35
+    # d = ''
+
+    m_cid = 0
+    m_symbol = ' '
+    m_price = 0
+    m_date = ' '
+    # mindex = 0
     # mysql connection
     conn = MakeConnection.get_config()
     # print('Line 141 def main', conn)
     mpid = 0
-    p = Prices(conn, mindex)
+    p = Prices(conn, m_cid, m_symbol, m_price, m_date)
     # yn = input('l137: ')
     mp = p.show_prices()
-    print('l155, MP', mp)
-    yn = input('l56',' wait')
-    print('l156 type mp', type(mp))
+
     if (type(mp) == str):
-        index = int(mp)
+        m_cid = int(mp)
         mp = 'E'
-        print('index: ', index)
-        print('mp: ', mp)
-        print('type(index', type(index))
-        print('type(mp)', type(mp))
-    yn = input('l163 waiting...')
+        print('l154 m_cid, type(m_cid: )', m_cid, type(m_cid))
+    else:
+        print('type(mp), mp', type(mp), mp)
+    yn = input('l157 waiting...')
 # start 1st loop
     while True:
         if  mp == 'E':
-            p.edit_prices(index)
+            p.edit_prices()
         elif mp == 'A':
             p.insert_prices()
         elif (mp == 'Q' or mp == 'q'):
@@ -161,7 +172,7 @@ def main():
             yn = input('l167, waiting...')
             break
         else:
-            p.edit_prices(mp)
+            p.edit_prices()
        #  mp = p.show_prices()
 
 
