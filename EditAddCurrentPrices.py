@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import MakeConnection
 from os import system
-import datetime
+from datetime import datetime
+
 
 
 class Prices:
@@ -53,16 +54,16 @@ class Prices:
             sql = """SELECT * from CurrentPrices where cid = %s""" % self.m_cid
             cursor.execute(sql)
             results = cursor.fetchone()
-
+            print(results[1])
+            yn = input('wait l 58')
             for row in results:
-                self.m_cid = int(results[0])
-                self.m_symbol = results([1])
-                self.m_price = results([2])
-                self.m_date = results([3])
-                month, day, year = map(int, self.m_date.split('/'))
-                self.m_date = datetime(year, month, day)
+                self.m_cid = (row[0]),
+                self.m_symbol = row([1]),
+                self.m_price = row([2]),
+                self.m_date = row([3])
+                self.m_date = datetime.strptime(self.m_date, '%m/%d/%Y')
 
-            print("\nID:            {}".format(self.m_cid))
+
             print("\n1. symbol:     {}". format(self.m_symbol))
             print("\n2. price:      {}". format(self.m_price))
             print("\n3. date:       {}". format(self.m_date))
@@ -78,8 +79,11 @@ class Prices:
                 break
 
             mnewdata = input("Enter new value: ")
-            sql = "UPDATE CurrentPrices SET price = %s WHERE cid = $s"
-            val = (mnewdata, col)
+            if m_column == '3':
+                mnewdata = datetime.strptime(mnewdata, '%m/%d/%Y')
+            # sql = "UPDATE CurrentPrices SET price = %s WHERE cid = $s"
+            # val = (mnewdata, col)
+            # this won't work with date!'
             cursor.execute("""UPDATE CurrentPrices set {}=%s WHERE cid = %s""".format(col), (mnewdata, self.m_cid))
             self.conn.commit()
 
@@ -91,12 +95,11 @@ class Prices:
         print('m_symbol: ', self.m_symbol )
         # fixup date
         m_date = input('Enter date: MM/DD/YYYY ')
-        month, day, year = map(int, m_date.split('/'))
-        m_date = datetime.date(year, month, day)
-        print('m_date: ', m_date)
+        self.m_date = datetime.strptime(self.m_date, '%m/%d/%Y')
+        print('m_date: ', self.m_date)
 
-        m_price = input('Enter price:')
-        print('m_price: ', m_price)
+        self.m_price = input('Enter price:')
+        print('m_price: ',self.m_price)
         yn = input('waiting at line 109')
 
         cursor = self.conn.cursor()
@@ -126,10 +129,9 @@ class Prices:
             self.m_symbol = row[1]
             self.m_price = row[2]
             self.m_date = row[3]
-            month, day, year = map(int, self.m_date.split('/'))
-            self.m_date = datetime.date(year, month, day)
             self.edit_prices()
             # return 'E'
+
 
         elif( yn == 'A' or yn == 'a'):
             self.insert_prices()
@@ -141,9 +143,9 @@ def main():
     # a = 35
     # d = ''
 
-    m_cid = 0
+    m_cid = ' '
     m_symbol = ' '
-    m_price = 0
+    m_price =' '
     m_date = ' '
     # mindex = 0
     # mysql connection
