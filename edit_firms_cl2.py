@@ -1,40 +1,6 @@
-from mysql.connector import (connection)
-import configparser
-import os
-
-
-class MakeConnection:
-
-    def __init__(self, muser, mpwd, mhost, mport, mfile):
-        #     self.name = name    # instance variable unique to each instance
-        self.muser = muser
-        self.mpwd = mpwd
-        self.mhost = mhost
-        self.mport = mport
-        self.mfile = mfile
-
-    def create_connection(self):
-        try:
-            conn = connection.MySQLConnection(user=self.muser, password=self.mpwd, host=self.mhost, port=self.mport,
-                                              database=self.mfile)
-            cursor = conn.cursor()
-            print("connected")
-            return conn
-        except Exception as e:
-            print("no connection")
-            return e
-
-    def get_config(self):
-        config = configparser.ConfigParser()
-        config.read('config.ini')
-        self.muser = config['DEFAULT']['muser']
-        self.mpwd = config['DEFAULT']['mpwd']
-        self.mhost = config['DEFAULT']['mhost']
-        self.mport = config['DEFAULT']['mport']
-        self.mfile = config['DEFAULT']['mfile']
-
-        b = [self.muser, self.mpwd, self.mhost, self.mport, self.mfile]
-        return b
+import MakeConnection
+from os import system
+from datetime import datetime
 
 
 class EditFirm:
@@ -72,9 +38,9 @@ class EditFirm:
                 print("{:3d}".format(row[0]), "{0:60s}".format(row[1]))
 
             self.mfid = input("Enter id or quit: (q)?")
-            return self.mfid
-            # print('fid: ', self.mfid)
+            print('fid: ', self.mfid)
             yn = input('waiting at line 74')
+            return self.mfid
         except Exception as e:
             print("Error: no data")
             return 0
@@ -127,7 +93,6 @@ class EditFirm:
         elif mcolumn == '6':
             col = 'email'
 
-
         # get and insert values
         mnewdata = input("Enter new value: ")
         cursor.execute("""UPDATE firms set {}=%s where fid=%s""".format(col), (mnewdata, self.mfid))
@@ -136,12 +101,7 @@ class EditFirm:
 
 
 def main():
-    # mysql connection
-    muser = ''
-    mpwd = ''
-    mhost = ''
-    mport = 0
-    mfile = ''
+    conn = MakeConnection.get_config()
 
     # firms columns
     mfid = 0
@@ -153,14 +113,9 @@ def main():
     memail = ''
 
     mvar = ' '
-    conn = ' '
+    # conn = ' '
     mfirm = ' '
 
-    # CONNECT TO MYSQL DATABASE
-    a1 = MakeConnection(muser, mpwd, mhost, mport, mfile)
-    b = a1.get_config()
-    a1 = MakeConnection(b[0], b[1], b[2], b[3], b[4])
-    conn = a1.create_connection()
 
     # FIND DESIRED FIRM
     a2 = EditFirm(mvar, conn, mname, mfid, mstreet, mCityStateZip, mAgent, mphone, memail)
@@ -181,11 +136,10 @@ def main():
         yn = input('Continue (y/n)')
         if yn == 'n':
             break
-        os.system('clear')
-    exit
+
     conn.close()
 
 
 if __name__ == '__main__':
     main()
-    os.system('clear')
+    system('clear')

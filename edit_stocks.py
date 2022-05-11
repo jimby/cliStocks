@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # edit_stocks.py
 # __all__ = ['datetime']
-from mysql.connector import (connection)
+import MakeConnection
 
 import datetime
 
@@ -15,16 +15,6 @@ def validate(date_text):
     except:
         print("wrong date", date_text)
         return 0
-
-
-def create_connection(conn_user, conn_pwd, conn_host, conn_port, conn_file):
-    try:
-        conn = connection.MySQLConnection(user=conn_user, password=conn_pwd, host=conn_host, port=conn_port, database=conn_file)
-        return conn
-    except Exception as e:
-        print(e)
-        return None
-
 
 def find_stock(conn):
 
@@ -67,14 +57,14 @@ def edit_stock(db, val):
     print("results[1]", results[0])# fetch one
     for row in results:
         m_sid = results[0]
-        m_stock_symbol = results[1]
-        m_name = results[2]
-        m_qty = float(results[3])
-        m_price = float(results[4])
-        m_fee = float(results[5])
-        m_trans_date = results[6]
-        m_bs = results[7]
-        m_aid = int(results[8])
+        m_stock_symbol = results[2]
+        m_name = results[3]
+        m_qty = float(results[4])
+        m_price = float(results[5])
+        m_fee = float(results[6])
+        m_trans_date = results[7]
+        m_bs = results[8]
+        m_aid = int(results[9])
 
     print("\nsid:          {}".format(m_sid))
     print("1) symbol =     {}".format(m_stock_symbol))
@@ -119,13 +109,9 @@ def edit_stock(db, val):
 
 
 def main():
-    db_user = 'jim'
-    db_pwd = 'ttaskk'
-    db_host = '192.168.1.115'
-    db_port = 3307
-    db_file = "stocks"
-
-    conn = create_connection(db_user, db_pwd, db_host, db_port, db_file)
+    conn = MakeConnection.get_config()
+    print("whoops!")
+    yn = input('wait 114')
     while True:
         answer = find_stock(conn)
         edit_stock(conn, answer)
