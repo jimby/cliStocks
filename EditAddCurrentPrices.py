@@ -2,9 +2,11 @@
 import MakeConnection
 from os import system
 from datetime import datetime
+import getpass
 
 
 class Prices:
+
     def __init__(self, conn, m_cid, m_symbol, m_price, m_date):
         #     self.name = name    # instance variable unique to each instance
         self.conn = conn
@@ -13,62 +15,54 @@ class Prices:
         self.m_price = m_price
         self.m_date = m_date
 
-    # noinspection SqlResolve
+# enter symbol
+    # get index
+    # edit
+    # insert
     def choose_symbol(self):
-        print('Choose stock symbol\n\n')
-        mindex = 0
-        cursor = self.conn.cursor()
-
         while True:
+            print('\n\nChoose stock symbol')
+            m_symbol = input("enter stock symbol [Q]uit: ")
+            if m_symbol == 'Q' or m_symbol == 'q':
+                return
+            m_symbol = '%{}%'.format(m_symbol)
+            mindex = 0
+            cursor = self.conn.cursor()
             #edit price, date
-            while True:
-                m_symbol = input("enter stock symbol: ")
-                m_symbol = '%{}%'.format(m_symbol)
-                sql = """select cid, symbol, price, date from CurrentPrices  where symbol like '%s' """ % m_symbol
-                cursor.execute(sql)
-                data = cursor.fetchall()
-                if len(data) == 0:
-                    print("No symbol found.")           # add stocks
-                    print('Add Symbol (A) or try again (T): ?')
-                    yn = input('wait ...')
-                    if yn == 'A' or yn == 'a':
-                        self.insert_prices()
-                    continue
-                else:
-                    print("ID  symbol|   |price             |Date")
-                    for row in data:
-                        print("{}".format(row[0]), "{}".format(row[1]), "{}".format(row[2]), "{}".format(row[3]), "\n\n")
-                        mindex = input("Enter id:")
 
-                        if mindex:
-                            print('mindex, type(mindex)', mindex, type(mindex))
-                            yn = input('line41 waiting')
-                            break
-                if mindex:
-                    print('mindex, type(mindex)', mindex, type(mindex))
-                    yn = input('line45 waiting')
+# get stock symbol
+            sql = """select cid, symbol, price, date from CurrentPrices  where symbol like '%s' """ % m_symbol
+            cursor.execute(sql)
+            data = cursor.fetchall()
+            if len(data) == 0:
+                print("No symbol found.")           # add stocks
+                print('Add Symbol (A) or try again (T): ?')
+                yn = input('wait ...')
+                if yn == 'A' or yn == 'a':
+                    self.insert_prices()
+                elif yn == 'T' or yn == 't':
                     break
-            # if mindex:
-            #     print('mindex, type(mindex)', mindex, type(mindex))
-            #     yn = input('l49 waiting')
-            #     break
+
+            print("ID  symbol|   |price             |Date")
+
+            for row in data:
+                  print("{}".format(row[0]), "{}".format(row[1]), "{}".format(row[2]), "{}".format(row[3]), "\n\n")
+                  mindex = input("Enter id:")
 
             yn = input('Choose (E)dit, (A)dd record, or (Q)uit (E/R/Q): ')
             if yn == 'E' or yn == 'e':
                 self.edit_prices(mindex)
             elif yn == 'A' or yn == 'a':
                 self.insert_prices()
-            else:
+            if yn == 'Q' or yn == 'q':
                 break
-
-
 
     def insert_prices(self):
         # fixup symbol
-        print('Add prices\n\n')
+        print('Add prices\n')
         self.m_symbol = input('Enter stock symbol: ')
         self.m_symbol = self.m_symbol.replace("%", "")
-        print('m_symbol: ', self.m_symbol )
+        print('m_symbol: ', self.m_symbol)
         # fixup date
         self.m_date = input('Enter date: MM/DD/YYYY ')
         self.m_date = datetime.strptime(self.m_date, '%m/%d/%Y')
@@ -86,7 +80,7 @@ class Prices:
         return
 
     def edit_prices(self, mindex):
-        print('Edit Current prices\n\n')
+        print('Edit Current prices\n')
         while True:
             print('l67 mindex: ', mindex)
             yn = input('wait...')
@@ -120,6 +114,7 @@ class Prices:
             # print("5) fee =        {}".format(m_fee))
             # print("6) date =       {:%b %d, %Y} ".format(m_trans_date))
             # print("7) buyorsell =  {}".format(m_bs))
+            print('[Q] quit')
 
             mcolumn = input("\nEnter column number to edit or [q]uit")
             if mcolumn == '1':
@@ -137,31 +132,27 @@ class Prices:
             # elif mcolumn == '7':
             #    col = 'buyorsell'
 
+            mnewdata = input("Enter new value [Q]uit: ")
+            if mcolumn == '1':
+                if not type(mnewdata) == 'str':
+                    cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""".format(col), (mnewdata, m_cid))
+                    self.conn.commit()
+                    continue
+            if mcolumn == '2':
+                if not type(mnewdata) == 'float':
+                    cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""".format(col), (mnewdata, m_cid))
+                    self.conn.commit()
+                    continue
+            if mcolumn == '3':
+                if not type(mnewdata) == 'datetime.datetime':
+                    mnewdata = datetime.strptime(mnewdata, '%m/%d/%Y')
+                    cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""".format(col), (mnewdata, m_cid))
+                    self.conn.commit()
+                    continue
+            if mcolumn == 'Q' or mcolumn == 'q':
+                system('clear')
+                break
 
-            #get new values
-            while True:
-                mnewdata = input("Enter new value: ")
-                if mcolumn == '1':
-                    if not type(mnewdata) == 'str':
-                        continue
-                if mcolumn == '2':
-                    if not type(mnewdata) == 'float':
-                        continue
-                if mcolumn == '3':
-                    if not type(mnewdata) == 'datetime.datetime':
-                        continue
-
-
-
-            #update stocks
-            #sql = """ UPDATE stocks SET `%s` = %s WHERE sid = %s"""
-            cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""" .format(col), (mnewdata, m_cid))
-            #cursor.execute(sql, (col, mnewData, sid))
-
-            self.conn.commit()
-
-        if mcolumn == 'Q' or mcolumn == 'q':
-            return
 
 
 def main():
@@ -172,25 +163,23 @@ def main():
     m_symbol = ' '
     m_price = ' '
     m_date = ' '
-    conn = MakeConnection.get_config()
+
+    while True:
+        conn = MakeConnection.get_config()
+        if not conn:
+            print("No connection.")
+            yn = input("Try again.")
+        else:
+            break
+    system('clear')
 
     p = Prices(conn, m_cid, m_symbol, m_price, m_date)
     # yn = input('l137: ')
-    mp = p.choose_symbol()
+    # mp = p.choose_symbol()
     # if mp == 'E', whereis cid??
     # start 1st loop
-    while True:
-        if mp == 'E':
-            p.edit_prices()
-        elif mp == 'A':
-            p.insert_prices()
-        elif (mp == 'Q' or mp == 'q'):
-            print('mp: ', mp)
-            yn = input('l167, waiting...')
-            break
-        else:
-            p.edit_prices(mp)
-       #  mp = p.show_prices()
+    p.choose_symbol()
+  #  mp = p.show_prices()
 
 
 

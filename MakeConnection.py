@@ -3,6 +3,8 @@ from mysql.connector import (connection)
 # import pwinput
 from getpass import getpass
 import configparser
+import getpass
+
 # this is attempt to ass configparser as function in class FindFirm
 
 mhost = ''
@@ -15,7 +17,12 @@ mfile = ''
 def get_config():
         
     muser = input('Enter user name: ')
-    mpwd  =  input('Enter user password: ')
+    # mpwd = input('Enter user password: ')
+    try:
+        mpwd = getpass.getpass(prompt='Password: ')
+    except Exception as error:
+        print('Error:', error)
+
     mfile = input("Enter database name: ")
     
         
@@ -32,7 +39,7 @@ def get_config():
         print("connected")
         return conn
     except Exception as e:
-        print("no connection")
+        # print("no connection")
         return 0
 
 
