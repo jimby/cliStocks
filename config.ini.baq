@@ -1,0 +1,5 @@
+[DEFAULT]
+mhost = localhost
+mport = 3306
+
+

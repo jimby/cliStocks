@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8af58988-74cf-4e3a-8850-d5488bea8d5a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/helloworld.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CurrentPrices.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config.ini.baq" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EditAddCurrentPrices.py" beforeDir="false" afterPath="$PROJECT_DIR$/EditAddCurrentPrices.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MakeConnection.py" beforeDir="false" afterPath="$PROJECT_DIR$/MakeConnection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,6 +300,11 @@
       <workItem from="1652564107440" duration="4191000" />
       <workItem from="1652626624035" duration="685000" />
       <workItem from="1652660028479" duration="279000" />
+      <workItem from="1652923903761" duration="474000" />
+      <workItem from="1652936446550" duration="187000" />
+      <workItem from="1652974868699" duration="710000" />
+      <workItem from="1653004988412" duration="1091000" />
+      <workItem from="1653090824196" duration="5329000" />
     </task>
     <servers />
   </component>
@@ -327,7 +334,7 @@
     <SUITE FILE_PATH="coverage/cliStocks$find_acct_symbol.coverage" NAME="find_acct_symbol Coverage Results" MODIFIED="1649254147559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$insert_stocks_cl2.coverage" NAME="insert_stocks_cl2 Coverage Results" MODIFIED="1650292872212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$insert_stocks.coverage" NAME="insert_stocks Coverage Results" MODIFIED="1649018944938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/cliStocks$EditAddCurrentPrices.coverage" NAME="EditAddCurrentPrices Coverage Results" MODIFIED="1652660153620" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cliStocks$EditAddCurrentPrices.coverage" NAME="EditAddCurrentPrices Coverage Results" MODIFIED="1653105290818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$insert_prices.coverage" NAME="insert_prices Coverage Results" MODIFIED="1649426363035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$EditAddCurrentPrices_ph.coverage" NAME="EditAddCurrentPrices.ph Coverage Results" MODIFIED="1650294271721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$edit_stocks.coverage" NAME="edit_stocks Coverage Results" MODIFIED="1651976377001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
