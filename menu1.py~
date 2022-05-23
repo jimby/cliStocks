@@ -2,7 +2,7 @@
 import insert_firms_cl1
 import insert_account_cl1
 import find_firm_cl2
-import find_symbol
+import find_symbol_cl
 import find_acct_cl2
 import report_gains
 import report_stocks
@@ -34,7 +34,7 @@ while True:
         find_firm_cl2.main()
     elif yn == '4':
         # find_symbol_cl.main()
-        find_symbol.main()
+        ./find_symbol.py
     elif yn == '5':
         find_acct_cl2.main()
     elif yn == '6':

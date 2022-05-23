@@ -10,7 +10,7 @@ do
         "Edit menu")
             echo "open edit_menu.sh"
             # python ./UpdatePrices.py
-            ./edit_menu.sh
+            $cwd/edit_menu.sh
             break
             ;;
         "Add")

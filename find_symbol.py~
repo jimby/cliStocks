@@ -53,13 +53,9 @@ class FindStock:
         if msymbol == "%%":
             return
         cursor = self.conn.cursor()
-#        sql = """SELECT a.long_acct, s.stock_symbol,s.quantity,s.name, s.price,p.prices, s.trans_date,
-#         p. effective_date,s.lot_number FROM accounts a, stocks s, prices p where a.aid= s.aid and s.stock_symbol=p.symbol and
-#           s.stock_symbol like '%s' """ % msymbol
-
-        sql = """SELECT a.long_acct, s.stock_symbol,s.quantity,s.name, s.price,cp.price, s.trans_date,
-         cp.date,s.lot_number FROM accounts a, stocks s, CurrentPrices cp where a.aid= s.aid and s.stock_symbol=cp.symbol and
-         s.stock_symbol like '%s' """ % msymbol
+        sql = """SELECT a.long_acct, s.stock_symbol,s.quantity,s.name, s.price,p.prices, s.trans_date,
+         p. effective_date,s.lot_number FROM accounts a, stocks s, prices p where a.aid= s.aid and s.stock_symbol=p.symbol and
+           s.stock_symbol like '%s' """ % msymbol
 
         cursor.execute(sql)
 
