@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8af58988-74cf-4e3a-8850-d5488bea8d5a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/MainMenu.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EditAddCurrentPrices.py" beforeDir="false" afterPath="$PROJECT_DIR$/EditAddCurrentPrices.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EditMenu.sh" beforeDir="false" afterPath="$PROJECT_DIR$/EditMenu.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edit_menu.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/menu.sh" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,6 +311,9 @@
       <workItem from="1653151885163" duration="603000" />
       <workItem from="1653228067406" duration="3841000" />
       <workItem from="1653240533855" duration="1899000" />
+      <workItem from="1653404040157" duration="454000" />
+      <workItem from="1653432768362" duration="81000" />
+      <workItem from="1653582652028" duration="52000" />
     </task>
     <servers />
   </component>
@@ -336,7 +343,7 @@
     <SUITE FILE_PATH="coverage/cliStocks$find_acct_symbol.coverage" NAME="find_acct_symbol Coverage Results" MODIFIED="1649254147559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$insert_stocks_cl2.coverage" NAME="insert_stocks_cl2 Coverage Results" MODIFIED="1650292872212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$insert_stocks.coverage" NAME="insert_stocks Coverage Results" MODIFIED="1649018944938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/cliStocks$EditAddCurrentPrices.coverage" NAME="EditAddCurrentPrices Coverage Results" MODIFIED="1653241546268" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cliStocks$EditAddCurrentPrices.coverage" NAME="EditAddCurrentPrices Coverage Results" MODIFIED="1653432835068" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$insert_prices.coverage" NAME="insert_prices Coverage Results" MODIFIED="1649426363035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$EditAddCurrentPrices_ph.coverage" NAME="EditAddCurrentPrices.ph Coverage Results" MODIFIED="1650294271721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$edit_stocks.coverage" NAME="edit_stocks Coverage Results" MODIFIED="1651976377001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

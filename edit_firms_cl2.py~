@@ -94,8 +94,6 @@ class EditFirm:
             col = 'phone'
         elif mcolumn == '6':
             col = 'email'
-        if mcolumn == 'Q' or mcolumn == 'q':
-            subprocess.run(["/home/jim/projects/test/python/test.sh"], shell=True)
 
         # get and insert values
         mnewdata = input("Enter new value: ")
