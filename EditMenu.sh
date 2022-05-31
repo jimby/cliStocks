@@ -1,6 +1,9 @@
 #!/bin/bash
+# EditMenu/sh
+
 PS3="Please enter your choice"
 options=("edit prices" "edit firms" "edit stocks" "edit accounts" "main menu")
+clear
 echo "Edit Menu"
 select opt in "${options[@]}"
 do
@@ -28,7 +31,7 @@ do
             ;;
           "main menu")
             echo "return to main menu"
-            ./menu.sh
+            ./MainMenu.sh
             ;;
 
         *) echo "invalid option $REPLY";;

@@ -1,7 +1,9 @@
 #!/bin/bash
-# Bash Menu Script Example
+# MainMenu.sh
+
 PS3="please enter your choice"
 options=("Edit menu" "Add menu" "Find menu" "Report menu" "Quit")
+clear
 echo "Main Menu"
 select opt in "${options[@]}"
 do
@@ -29,7 +31,9 @@ do
 	        break
             ;;
         "Quit")
-            exit 0
+            echo "Quit"
+	    break
+	    # exit 0
             ;;
 
         *) echo "invalid option $REPLY";;

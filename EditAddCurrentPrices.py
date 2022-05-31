@@ -1,10 +1,13 @@
 #!/usr/bin/env python
+# EditAddCurrentPrices.py
+
 import MakeConnection
 import os
-from subprocess import call
+# from subprocess import call
 from os import name
 from datetime import datetime
 from time import sleep
+import subprocess
 # import getpass
 
 
@@ -60,6 +63,8 @@ class Prices:
 
             if mindex == 'T' or mindex == 't':
                 continue
+            else:
+                print('mindex: ', mindex)
             # if yn == 'E' or yn == 'e':
             self.edit_prices(mindex)
             # if yn == 'C' or yn == 'c':
@@ -148,8 +153,11 @@ class Prices:
             elif mcolumn == '3':
                 col = 'date'
             elif mcolumn == 'Q':
+                yn = input('wait')
                 self.choose_symbol()
             elif mcolumn == 'q':
+                subprocess.run(["/home/jim/projects/cliStocks/EditMenu.sh"], shell=True)
+                
                 self.choose_symbol()
             # elif mcolumn == '6':
             #    col = 'trans_date'
@@ -173,9 +181,9 @@ class Prices:
                     cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""".format(col), (mnewdata, m_cid))
                     self.conn.commit()
                     continue
-            # if mcolumn == 'Q' or mcolumn == 'q':
-            #     system('clear')
-            #     return
+            if mcolumn == 'Y' or mcolumn == 'y':
+                
+                return
 
     def clear(self):
 

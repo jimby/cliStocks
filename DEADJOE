@@ -1,0 +1,25 @@
+
+*** These modified files were found in JOE when it aborted on Fri May 27 21:52:41 2022
+*** JOE was aborted because the terminal closed
+
+*** File '(Unnamed)'
+index
+
+*** File '(Unnamed)'
+test.sh
+TestRunNASH.py
+TestRunBASH.py
+TestRunBASH.py
+TestRunBASH.py
+TestRunBASH.py
+TestRunBASH.py
+TestRunBASH.py
+EditMenu.sh
+edit_firms_cl2.py
+edit_firms_cl2.py
+
+*** File '* Startup Log *'
+Processing '/etc/joe/joerc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/joerc

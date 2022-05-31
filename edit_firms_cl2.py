@@ -41,7 +41,7 @@ class EditFirm:
 
             self.mfid = input("Enter id or quit: (q)?")
             print('fid: ', self.mfid)
-            yn = input('waiting at line 74')
+            yn = input('waiting at line 44')
             return self.mfid
         except Exception as e:
             print("Error: no data")
@@ -94,9 +94,10 @@ class EditFirm:
             col = 'phone'
         elif mcolumn == '6':
             col = 'email'
-        if mcolumn == 'Q' or mcolumn == 'q':
-            subprocess.run(["/home/jim/projects/test/python/test.sh"], shell=True)
-
+        elif mcolumn == 'Q':
+            subprocess.run(["/home/jim/projects/cliStocks/EditMenu.sh"], shell=True)
+        elif mcolumn == 'q':
+            subprocess.run(["/home/jim/projects/cliStocks/EditMenu.sh"], shell=True)
         # get and insert values
         mnewdata = input("Enter new value: ")
         cursor.execute("""UPDATE firms set {}=%s where fid=%s""".format(col), (mnewdata, self.mfid))

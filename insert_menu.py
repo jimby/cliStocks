@@ -17,33 +17,33 @@ while ans:
     print(ans)
     if ans == "S" or ans == "s":
         print("\n Add stocks")
-        importlib.import_module('cliAdd.insert_stocks')
-        import add.insert_stocks
-        t = add.insert_stocks.main()
+        importlib.import_module('insert_stocks_cl2')
+        import insert_stocks_cl2
+        t = insert_stocks_cl2.main()
         print("Add stocks-")
     elif ans == "P" or ans == "p":
         print("\nAdd prices")
-        importlib.import_module('cliAdd.insert_prices')
-        import add.insert_prices
-        t = add.insert_prices.main()
+        importlib.import_module('insert_prices')
+        import insert_prices
+        t = insert_prices.main()
         print("Add prices-")
     elif ans == "D" or ans == "d":
         print("\nAdd dividends")
-        importlib.import_module('cliAdd.insert_dividends')
-        import add.insert_dividends
-        t = add.insert_dividends.main()
+        importlib.import_module('insert_dividends')
+        import insert_dividends
+        t = insert_dividends.main()
         print("Add dividends-")
     elif ans == "F" or ans == 'f':
         print("Add firms")
-        importlib.import_module('cliAdd.insert_firms')
-        import add.insert_firms
-        t = add.insert_firms.main()
+        importlib.import_module('insert_firms_cl1')
+        import insert_firms_cl1
+        t = insert_firms_cl1.main()
         print("Add firms-")
     elif ans == "A" or ans == 'a':
         print("Add accounts")
-        importlib.import_module('cliAdd.insert_account')
-        import add.insert_account
-        t = add.insert_account.main()
+        importlib.import_module('insert_account_cl2')
+        import insert_account_cl2
+        t = insert_account_cl2.main()
         print("Add accounts-")
     elif ans == "M" or ans == "m":
         print("return to main menu")
