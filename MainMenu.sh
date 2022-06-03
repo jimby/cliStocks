@@ -30,10 +30,11 @@ do
 	        # ./find_menu.sh
 	        break
             ;;
-        "Quit")
-            echo "Quit"
+        "Quit") 
+	    echo "Quit now"
 	    break
-	    # exit 0
+	    echo "break doesn't work!"
+		# exit 0
             ;;
 
         *) echo "invalid option $REPLY";;

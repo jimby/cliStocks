@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8af58988-74cf-4e3a-8850-d5488bea8d5a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DEADJOE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainMenu.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/find_menu.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EditAddCurrentPrices.py" beforeDir="false" afterPath="$PROJECT_DIR$/EditAddCurrentPrices.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EditMenu.sh" beforeDir="false" afterPath="$PROJECT_DIR$/EditMenu.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit_firms_cl2.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit_firms_cl2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainMenu.sh" beforeDir="false" afterPath="$PROJECT_DIR$/MainMenu.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edit_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit_menu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +53,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="preferences.editor.code.editing" />
   </component>
-  <component name="RunManager" selected="Python.edit_firms_cl2">
+  <component name="RunManager" selected="Python.MainMenu">
     <configuration name="EditAddCurrentPrices" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="cliStocks" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -69,6 +69,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/EditAddCurrentPrices.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="MainMenu" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="cliStocks" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MainMenu.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -143,29 +165,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="insert_prices" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="cliStocks" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="TERM" value="xterm-color" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/insert_prices.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="insert_stocks_cl2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="cliStocks" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -190,19 +189,19 @@
     </configuration>
     <list>
       <item itemvalue="Python.EditAddCurrentPrices" />
-      <item itemvalue="Python.insert_prices" />
       <item itemvalue="Python.MenuTest" />
       <item itemvalue="Python.insert_stocks_cl2" />
       <item itemvalue="Python.edit_stocks" />
       <item itemvalue="Python.edit_firms_cl2" />
+      <item itemvalue="Python.MainMenu" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.MainMenu" />
         <item itemvalue="Python.edit_firms_cl2" />
         <item itemvalue="Python.edit_stocks" />
         <item itemvalue="Python.insert_stocks_cl2" />
         <item itemvalue="Python.MenuTest" />
-        <item itemvalue="Python.insert_prices" />
       </list>
     </recent_temporary>
   </component>
@@ -314,6 +313,10 @@
       <workItem from="1653432768362" duration="81000" />
       <workItem from="1653582652028" duration="52000" />
       <workItem from="1653838695295" duration="1644000" />
+      <workItem from="1654093913620" duration="1958000" />
+      <workItem from="1654107890132" duration="1001000" />
+      <workItem from="1654178129753" duration="2044000" />
+      <workItem from="1654210745704" duration="5494000" />
     </task>
     <servers />
   </component>
@@ -367,5 +370,6 @@
     <SUITE FILE_PATH="coverage/cliStocks$MenuTest.coverage" NAME="MenuTest Coverage Results" MODIFIED="1649616230633" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$find_symbol_cl.coverage" NAME="find_symbol_cl Coverage Results" MODIFIED="1649171726893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/cliStocks$edit_firms_cl2.coverage" NAME="edit_firms_cl2 Coverage Results" MODIFIED="1653843615546" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cliStocks$MainMenu.coverage" NAME="MainMenu Coverage Results" MODIFIED="1654224173205" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
