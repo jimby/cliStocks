@@ -1,11 +1,13 @@
 #!/bin/bash
 # MainMenu.sh
-
-PS3="please enter your choice"
-options=("Edit menu" "Add menu" "Find menu" "Report menu" "Quit")
 clear
-echo "Main Menu"
+PS3="Main Menu: please enter your choice"
+options=("Edit menu" "Add menu" "Find menu" "Report menu" "Quit")
+
+
 select opt in "${options[@]}"
+
+# echo "$opt"
 do
 
     case $opt in
@@ -17,28 +19,33 @@ do
             ;;
         "Add menu")
             echo "Insert Menu"
-            break
+            ./insert_menu.py
+	    break
             ;;
 
-        "Find menu")
+    "Find menu")
             echo "Find Menu"
 	        # ./find_menu.sh
+		./find_menu.sh
 	        break
             ;;
         "Report menu")
             echo "Report Menu"
-	        # ./find_menu.sh
-	        break
+	        # ./report_menu.sh
+	        report_menu.py
+		break
             ;;
         "Quit") 
-	    echo "Quit now"
-	    break
-	    echo "break doesn't work!"
-		# exit 0
+            echo "Quit now"
+            # break
+            # echo "$opt"
+	    	exit 0
             ;;
 
         *) echo "invalid option $REPLY";;
     esac
-
+    if [$opt -eq 5 ]; then
+        break
+    fi
 done
 

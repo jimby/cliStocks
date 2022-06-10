@@ -153,12 +153,9 @@ class Prices:
             elif mcolumn == '3':
                 col = 'date'
             elif mcolumn == 'Q':
-                yn = input('wait')
-                self.choose_symbol()
+                subprocess.run(["/home/jim/projects/cliStocks/menu4.sh"], shell=True)
             elif mcolumn == 'q':
-                subprocess.run(["/home/jim/projects/cliStocks/EditMenu.sh"], shell=True)
-                
-                self.choose_symbol()
+                subprocess.run(["/home/jim/projects/cliStocks/menu4.sh"], shell=True)
             # elif mcolumn == '6':
             #    col = 'trans_date'
             # elif mcolumn == '7':
@@ -181,9 +178,8 @@ class Prices:
                     cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""".format(col), (mnewdata, m_cid))
                     self.conn.commit()
                     continue
-            if mcolumn == 'Y' or mcolumn == 'y':
-                
-                return
+            # if mcolumn == 'Y' or mcolumn == 'y':
+            #    return
 
     def clear(self):
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python -m
 import importlib
 
 def edit_menu():

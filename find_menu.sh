@@ -18,7 +18,7 @@ do
         
         "return")
             echo "return to main menu"
-            ./menu_test.sh
+            ./MainMenu.sh
             ;;    
         
         *) echo "invalid option $REPLY";;

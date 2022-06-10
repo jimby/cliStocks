@@ -1,9 +1,9 @@
 #!/bin/bash
 # EditMenu/sh
-
-PS3="Please enter your choice"
-options=("edit prices" "edit firms" "edit stocks" "edit accounts" "main menu")
 clear
+PS3="Edit Menu:Please enter your choice"
+options=("edit prices" "edit firms" "edit stocks" "edit accounts" "main menu")
+
 echo "Edit Menu"
 select opt in "${options[@]}"
 do
@@ -30,7 +30,7 @@ do
             break
             ;;
           "main menu")
-            echo "return to main menu"
+            echo "main menu"
             ./MainMenu.sh
             ;;
 

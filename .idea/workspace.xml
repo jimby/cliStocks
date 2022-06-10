@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8af58988-74cf-4e3a-8850-d5488bea8d5a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/MainMenu.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/find_menu.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainMenu.sh" beforeDir="false" afterPath="$PROJECT_DIR$/MainMenu.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainMenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainMenu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +48,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="preferences.editor.code.editing" />
   </component>
   <component name="RunManager" selected="Python.MainMenu">
@@ -317,6 +315,7 @@
       <workItem from="1654107890132" duration="1001000" />
       <workItem from="1654178129753" duration="2044000" />
       <workItem from="1654210745704" duration="5494000" />
+      <workItem from="1654265601776" duration="2020000" />
     </task>
     <servers />
   </component>

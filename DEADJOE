@@ -23,3 +23,168 @@ Processing '/etc/joe/joerc'...
 Processing '/etc/joe/ftyperc'...
 Finished processing /etc/joe/ftyperc
 Finished processing /etc/joe/joerc
+
+*** These modified files were found in JOE when it aborted on Tue Jun  7 16:00:26 2022
+*** JOE was aborted by UNIX signal 15
+
+*** File './menu4.sh'
+# bash menu with two sub-menus
+submenu1 () {
+  
+  local PS3='edit menu: '
+  local options=("Sub menu1 item 1" "Sub menu1 item 2" "Sub menu1 quit")
+  local opt
+  clear
+  echo 'edit menu'
+  select opt in "${options[@]}"
+  do
+      case $opt in
+          "Sub menu1 item 1")
+              echo "you chose submenu1 item 1"
+              /home/jim/projects/cliStocks/EditAddCurrentPrices.sh  
+              ;;
+          "Sub menu1 item 2")
+              echo "you chose submenu1 item 2"
+              ;;
+          "Sub menu1 quit")
+              return
+
+              ;;
+          *) echo "invalid option $REPLY";;
+      esac
+  done
+}
+
+# submenu2
+submenu2 () {
+  
+  local PS3='add menu: '
+  local options=("Sub menu2 item 1" "Sub menu2 item 2" "Sub menu2 quit")
+  local opt
+  clear
+  echo 'add menu'
+  select opt in "${options[@]}"
+  do
+      case $opt in
+          "Sub menu2 item 1")
+              echo "you chose submenu2 item 1"
+              ;;
+          "Sub menu2 item 2")
+              echo "you chose submenu2 item 2"
+              ;;
+          "Sub menu2 quit")
+              return
+              ;;
+          *) echo "invalid option $REPLY";;
+      esac
+  done
+}
+
+# submenu3
+submenu3 () {
+  
+  local PS3='find menu: '
+  local options=("Sub menu3 item 1" "Sub menu3 item 2" "Sub menu3 quit")
+  local opt
+  clear
+  echo 'find menu'
+  select opt in "${options[@]}"
+  do
+      case $opt in
+          "Sub menu3 item 1")
+              echo "you chose submenu3 item 1"
+              ;;
+          "Sub menu3 item 2")
+              echo "you chose submenu3 item 2"
+              ;;
+          "Sub menu3 quit")
+              return
+              ;;
+          *) echo "invalid option $REPLY";;
+      esac
+  done
+}
+
+# submenu4
+submenu4 () {
+  
+  local PS3='find menu: '
+  local options=("Sub menu4 item 1" "Sub menu4 item 2" "Sub menu4 quit")
+  local opt
+  clear
+  echo 'find menu'
+  select opt in "${options[@]}"
+  do
+      case $opt in
+          "Sub menu4 item 1")
+              echo "you chose submenu3 item 1"
+              ;;
+          "Sub menu4 item 2")
+              echo "you chose submenu3 item 2"
+              ;;
+          "Sub menu4 quit")
+              return
+              ;;
+          *) echo "invalid option $REPLY";;
+      esac
+  done
+}
+
+# main menu
+
+PS3='Please enter main option: '
+options=("Main menu item 1" "Submenu1" "Submenu2" "Submenu3" "Submenu4" "Main menu quit")
+clear
+echo 'main menu'
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Main menu item 1")
+            echo "you chose main item 1"
+            ;;
+        "Submenu1")
+            submenu1
+            ;;
+        "Submenu2")    
+            submenu2
+            ;;
+                        
+        "Submenu3")    
+            submenu3
+            ;;
+        
+        "Submenu4")    
+            submenu4
+            ;;
+
+        "Main menu quit")
+            clear       
+            exit
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+
+done
+
+*** File '(Unnamed)'
+index
+subprocess
+
+*** File '(Unnamed)'
+menu.sh
+menu.sh
+menu.sh
+menu.sh
+menu.sh
+menu.sh
+menu.sh
+EditAddCurrentPrices.py
+EditAddCurrentPrices.py
+./menu4.sh
+./menu4.sh
+
+*** File '* Startup Log *'
+Processing '/etc/joe/joerc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/joerc
