@@ -69,12 +69,12 @@ class Prices:
             self.edit_prices(mindex)
             # if yn == 'C' or yn == 'c':
             #     continue
-            yn = input('[Q]uit')
-            if yn == 'Q' or yn == 'q':
-                break
+            # yn = input('[Q]uit')
+            # if yn == 'Q' or yn == 'q':
+            #     break
 
     def insert_prices(self):
-        sleep(1)
+        # sleep(1)
         os.system('clear')
         print('Add Symbols')
 
@@ -99,18 +99,24 @@ class Prices:
             sql = """INSERT INTO CurrentPrices (symbol, price, date) VALUES (%s, %s, %s) """
             cursor.execute(sql, (self.m_symbol, self.m_price, self.m_date))
             self.conn.commit()
-            yn = input('Add another symbol? (y/n): ')
+            yn = input('[A]dd another symbol? [E]dit, [Q]uit: ')
 
-            if yn == 'N' or yn == 'n':
+            if yn == 'E' or yn == 'e':
                 self.choose_symbol()
+            elif yn == 'A' or yn == 'a':
+                continue
+            elif yn == 'Q' or yn == 'q':
+                exit()
+
 
 
     def edit_prices(self, mindex):
-        sleep(1)
+        # sleep(1)
         os.system('clear')
 
-        print('Edit Current prices')
+
         while True:
+            print('Edit Current prices')
             # print('mindex: ', mindex)
             # yn = input('85 wait...')
             cursor = self.conn.cursor()
@@ -145,18 +151,25 @@ class Prices:
             # print("7) buyorsell =  {}".format(m_bs))
             # print('116 [Q] quit')
 
-            mcolumn = input("\nEnter column number to edit, [Q]uit")
+            mcolumn = input("\nEnter column number to edit,[A] symbol,[E]dit another, or [Q]uit")
             if mcolumn == '1':
                 col = 'symbol'
             elif mcolumn == '2':
                 col = 'price'
             elif mcolumn == '3':
                 col = 'date'
-            elif mcolumn == 'Q':
-                subprocess.run(["/home/jim/projects/cliStocks/menu4.sh"], shell=True)
-            elif mcolumn == 'q':
-                subprocess.run(["/home/jim/projects/cliStocks/menu4.sh"], shell=True)
-            # elif mcolumn == '6':
+            elif mcolumn == 'E' or mcolumn == 'e':
+                self.choose_symbol()
+                break
+            elif mcolumn == 'A' or mcolumn == 'a':
+                self.insert_prices()
+            elif mcolumn == 'Q' or mcolumn == 'q':
+                exit()
+                # subprocess.run(["/home/jim/projects/cliStocks/menu4.sh"], shell=True)
+            # elif mcolumn == 'q':
+                # subprocess.run(["/home/jim/projects/cliStocks/menu4.sh"], shell=True)
+                # break
+            #  mcolumn == '6':
             #    col = 'trans_date'
             # elif mcolumn == '7':
             #    col = 'buyorsell'
@@ -182,8 +195,8 @@ class Prices:
             #    return
 
     def clear(self):
+        os.system('clear')
 
-        _ = call('clear' if os.name == 'posix' else 'cls')
 
 
 
@@ -203,18 +216,36 @@ def main():
         if not conn:
             print("No connection.")
             yn = input("Try again.")
+            continue
         else:
+            os.system('clear')
             break
-    os.system('clear')
 
-    p = Prices(conn, m_cid, m_symbol, m_price, m_date)
+    p = Prices(conn, m_cid, m_symbol, m_price, m_date)      #class initilization
+    while True:
+        yn = input("[E]dit, [A]dd current prices [Q]uit ? ")
+        # Edit
+        if yn == 'E' or yn == 'e':
+            p.choose_symbol()                               # choose symbol
+            p.edit_prices()
+            continue
+        elif yn == 'A' or yn == 'a':
+            p.insert_prices()
+            continue
+        elif yn == 'Q' or yn == 'q':
+            break
+
+        # edit_prices
+        # insert
+        # quit
+
     # yn = input('l137: ')
     # mp = p.choose_symbol()
     # if mp == 'E', whereis cid??
     # start 1st loop
-    p.choose_symbol()
-  #  mp = p.show_prices()
-    return      
+    # p.choose_symbol()
+    #  mp = p.show_prices()
+    # return
 
 
 
