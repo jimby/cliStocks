@@ -14,8 +14,8 @@ def validate(date_text):
 
 while True:
 # t = 1
-    m_trans_date = input("Enter date (YYYY-MM-DD): ")
-    t = validate(m_trans_date)
+    self.m_trans_date = input("Enter date (YYYY-MM-DD): ")
+    t = validate(self.m_trans_date)
     if t:
         break
 
