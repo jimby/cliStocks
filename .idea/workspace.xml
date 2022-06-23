@@ -317,6 +317,7 @@
       <workItem from="1654210745704" duration="5494000" />
       <workItem from="1654265601776" duration="2020000" />
       <workItem from="1655664412477" duration="9203000" />
+      <workItem from="1655959698038" duration="315000" />
     </task>
     <servers />
   </component>
@@ -354,6 +355,11 @@
           <url>file://$PROJECT_DIR$/edit_firms_cl2.py</url>
           <line>101</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EditAddCurrentPrices.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

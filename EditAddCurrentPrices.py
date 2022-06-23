@@ -4,10 +4,10 @@
 import MakeConnection
 import os
 # from subprocess import call
-from os import name
+# from os import name
 from datetime import datetime
 from time import sleep
-import subprocess
+# import subprocess
 # import getpass
 
 
@@ -187,7 +187,8 @@ class Prices:
                     continue
             if mcolumn == '3':
                 if not type(mnewdata) == 'datetime.datetime':
-                    mnewdata = datetime.strptime(mnewdata, '%m/%d/%Y')
+                    # mnewdata = datetime.strptime(mnewdata, '%m/%d/%Y')
+                    mnewdata = self.GetDate()
                     cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""".format(col), (mnewdata, m_cid))
                     self.conn.commit()
                     continue
@@ -197,6 +198,18 @@ class Prices:
     def clear(self):
         os.system('clear')
 
+    def GetDate(self):
+        strdate = input("date: ")
+
+        txt = strdate[-4:]
+        x = txt.isnumeric()
+        if x:
+            format_date = '%m/%d/%Y'
+        else:
+            format_date = '%m/%d/%y'
+     
+        m_date = datetime.strptime(strdate, format_date)
+        return m_date
 
 
 
