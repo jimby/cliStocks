@@ -131,20 +131,20 @@ class Prices:
             # print("95 results[1]", results[0])# fetch one
 
             for row in results:
-                m_cid = results[0]
-                m_symbol = results[1]
-                m_price = results[2]
-                m_date = results[3]
+                self.m_cid = results[0]
+                self.m_symbol = results[1]
+                self.m_price = results[2]
+                self.m_date = results[3]
                 # m_price = float(results[5])
                 # m_fee = float(results[6])
                 # m_trans_date = results[7]
                 # m_bs = results[8]
                 # m_aid = int(results[9])
 
-            print("\ncid:          {}".format(m_cid))
-            print("1)symbol =     {}".format(m_symbol))
-            print("2)price =      {}".format(m_price))
-            print("3)date =       {}".format(m_date))
+            print("\ncid:          {}".format(self.m_cid))
+            print("1)symbol =     {}".format(self.m_symbol))
+            print("2)price =      {}".format(self.m_price))
+            print("3)date =       {}".format(self.m_date))
             # print("4) price =      {}".format(m_price))
             # print("5) fee =        {}".format(m_fee))
             # print("6) date =       {:%b %d, %Y} ".format(m_trans_date))
@@ -174,22 +174,28 @@ class Prices:
             # elif mcolumn == '7':
             #    col = 'buyorsell'
 
-            mnewdata = input("Enter new value: ")
+            # mnewdata = input("Enter new value: ")
             if mcolumn == '1':
-                if not type(mnewdata) == 'str':
-                    cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""".format(col), (mnewdata, m_cid))
+                self.m_symbol = input("Symbol: ")
+                if type(self.m_symbol) != 'str':
+                    cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""".format(col), (self.m_symbol, self.m_cid))
                     self.conn.commit()
                     continue
             if mcolumn == '2':
-                if not type(mnewdata) == 'float':
-                    cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""".format(col), (mnewdata, m_cid))
+                self.m_price = input("New price: ")
+                if type(self.m_price) !='float':
+                    cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""".format(col), (self.m_price, self.m_cid))
                     self.conn.commit()
                     continue
             if mcolumn == '3':
-                if not type(mnewdata) == 'datetime.datetime':
+                self.m_date = self.GetDate()
+
+                print("date: ", self.m_date)
+                yn = input("waiting ...")
+                if type(self.m_date) != 'datetime.datetime':
                     # mnewdata = datetime.strptime(mnewdata, '%m/%d/%Y')
-                    mnewdata = self.GetDate()
-                    cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""".format(col), (mnewdata, m_cid))
+                    # mnewdata = self.GetDate(mnewdata)
+                    cursor.execute("""UPDATE CurrentPrices set {}=%s where cid=%s""".format(col), (self.m_date, self.m_cid))
                     self.conn.commit()
                     continue
             # if mcolumn == 'Y' or mcolumn == 'y':
@@ -208,8 +214,8 @@ class Prices:
         else:
             format_date = '%m/%d/%y'
      
-        m_date = datetime.strptime(strdate, format_date)
-        return m_date
+        self.m_date = datetime.strptime(strdate, format_date)
+        return self.m_date
 
 
 
